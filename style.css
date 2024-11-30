@@ -60,11 +60,22 @@ h2 {
   color: #d1d1e0; /* Light grey */
 }
 
+/* Remove bullet points and ensure proper spacing */
+ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Add space between list items */
+}
+
 /* Guess input styling */
 input.guess-input {
   height: 45px;
   font-size: 1rem;
-  width: 90%;
+  width: 100%;
+  max-width: 90%;
   padding: 0 10px;
   border-radius: 8px;
   border: 2px solid #ff6f61;
@@ -72,6 +83,7 @@ input.guess-input {
   color: #ffffff;
   outline: none;
   transition: all 0.3s ease-in-out;
+  box-sizing: border-box; /* Ensure padding doesn't affect layout */
 }
 
 input.guess-input:focus {
@@ -127,4 +139,19 @@ audio #music {
   button {
     width: 100%;
   }
+}
+
+/* Ensure vertical scaling works for tall screens */
+#app > div {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ul {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
