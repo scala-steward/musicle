@@ -7,17 +7,27 @@ import org.scalajs.dom
 
 def appElement(): HtmlElement =
   div(
-    div(
+    div(cls := "header",
       h1("Musicle")
     ),
-    div(
-      h1("Hello Musicle!"),
-      h2(msg),
-      ul(
-        li("Item 1"),
-        li("Item 2"),
-      ),
-    ),
+    gameComponent(),
+  )
+
+def gameComponent(): HtmlElement =
+  div(
+    h1("Hello Musicle!"),
+    h2(msg),
+    ul(
+      li(guessInput()),
+      li(guessInput()),
+      li(guessInput()),
+      li(guessInput()),
+      li(guessInput()),
+    )
+  )
+
+def guessInput(): HtmlElement =
+  input(cls := "guess-input",
   )
 
 def msg = "I was compiled by Scala 3. :)"
