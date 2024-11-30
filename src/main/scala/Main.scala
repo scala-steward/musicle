@@ -11,14 +11,17 @@ val game: Game = Game()
 
 def appElement(): HtmlElement =
   div(
-    div(cls := "header",
+    headerTag(
       h1("Musicle")
     ),
     gameComponent(),
+    footerTag(
+      p("Created with <3 by Kresten")
+    ),
   )
 
 def gameComponent(): HtmlElement =
-  div(
+  mainTag(
     h1("Hello Musicle!"),
     h2(msg),
     ul(
