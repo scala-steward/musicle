@@ -3,5 +3,5 @@ class SongLibrary:
 
   def loadSongs(): List[Song] =
     List(
-      Song("Ghost Town", "The Specials", ""),
+      Song("Ghost Town", "The Specials", "THE_SPECIALS_Ghost_Town_1981.ogg"),
     )
