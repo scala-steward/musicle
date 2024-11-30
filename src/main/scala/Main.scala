@@ -1,9 +1,12 @@
 import com.raquo.laminar.api.L.{*, given}
+import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
 
 @main def hello(): Unit =
   // Laminar initialization
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
+
+val game: Game = Game()
 
 def appElement(): HtmlElement =
   div(
