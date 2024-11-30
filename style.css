@@ -67,7 +67,7 @@ ul {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Add space between list items */
+  gap: 2px; /* Add space between list items */
 }
 
 /* Guess input styling */
