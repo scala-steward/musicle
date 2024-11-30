@@ -1,16 +1,6 @@
-# Scala.js with sbt, Vite, Laminar and Chart.js
+# Musicle
 
-This is an example of putting together:
-
-* [Scala.js](https://www.scala-js.org/)
-* [sbt](https://www.scala-sbt.org/)
-* [Vite](https://vitejs.dev/)
-* [Laminar](https://laminar.dev/)
-
-If you don't want the project walkthrough in its entirety, you can specify up to which stage of the guide to include by cloning a specific branch:
-* [Vite](https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-example/tree/scalajs-vite-end-state)
-* [Vite + Laminar](https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-example/tree/laminar-end-state)
-* [Vite + Laminar + ScalablyTyped](https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-example/tree/scalablytyped-end-state)
+Guess a piece of music by listening to it, similar to the Wordle game format.
 
 ## Install
 
@@ -62,3 +52,10 @@ $ npm run build
 
 You can then find the built files in the `dist/` directory.
 You will need an HTTP server, such as `python3 -m http.server`, to open the files, as Vite rewrites `<script>` tags to prevent cross-origin requests.
+
+## Technology
+Built using the following technology:
+* [Scala.js](https://www.scala-js.org/)
+* [sbt](https://www.scala-sbt.org/)
+* [Vite](https://vitejs.dev/)
+* [Laminar](https://laminar.dev/)
