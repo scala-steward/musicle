@@ -7,11 +7,16 @@ import org.scalajs.dom
 
 def appElement(): HtmlElement =
   div(
-    h1("Hello Musicle!"),
-    h2(msg),
-    ul(
-      li("Item 1"),
-      li("Item 2"),
+    div(
+      h1("Musicle")
+    ),
+    div(
+      h1("Hello Musicle!"),
+      h2(msg),
+      ul(
+        li("Item 1"),
+        li("Item 2"),
+      ),
     ),
   )
 
