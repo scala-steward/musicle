@@ -73,11 +73,11 @@ def searchField(): HtmlElement =
         query.trim match {
           case "" => Nil
           case _ => game.songLibrary.songs
-            .filter(_.title.toLowerCase.contains(query.toLowerCase))
+            .filter(_.toString.toLowerCase.contains(query.toLowerCase))
             .take(5)
             .map(song =>
               li(cls := "song",
-                p(song.title),
+                p(song.toString),
                 onClick --> { _ => ??? }
               )
             )
