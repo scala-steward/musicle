@@ -1,4 +1,4 @@
-import Game.Game
+import Game.*
 import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
@@ -57,6 +57,7 @@ def guessElement(): HtmlElement =
 
 def searchField(): HtmlElement =
   val searchQueryVar = Var("")
+  val selectedSong: Var[Song] = Var(game.songLibrary.songs.head)
 
   div(
     cls := "container",
@@ -64,6 +65,7 @@ def searchField(): HtmlElement =
       cls := List("guess-input", "guess-box"),
       typ := "text",
       placeholder := "Runaway...",
+      value <-- searchQueryVar.signal,
       inContext { thisNode =>
         onInput.mapTo(thisNode.ref.value) --> searchQueryVar
       }
@@ -73,12 +75,17 @@ def searchField(): HtmlElement =
         query.trim match {
           case "" => Nil
           case _ => game.songLibrary.songs
-            .filter(_.toString.toLowerCase.contains(query.toLowerCase))
+            .filter { case (song) => song.toString.toLowerCase.contains(query.toLowerCase) }
             .take(5)
             .map(song =>
               li(cls := "song",
                 p(song.toString),
-                onClick --> { _ => ??? }
+                onClick --> { _ =>
+                  selectedSong.set(song)
+                  searchQueryVar.set(song.toString)
+                  dom.console.log(song.toString)
+                  game.guessSong(song)
+                }
               )
             )
         }
