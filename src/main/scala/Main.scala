@@ -24,20 +24,16 @@ def gameComponent(): HtmlElement =
   mainTag(
     h1("Hello Musicle!"),
     h2(msg),
-    ul(
-      li(guessInput()),
-      li(guessInput()),
-      li(guessInput()),
-      li(guessInput()),
-      li(guessInput()),
+    ul(cls := "guess-container",
+      li(guessElement()),
+      li(guessElement()),
+      li(guessElement()),
+      li(guessElement()),
+      li(guessElement()),
     ),
     playButton(),
     searchField(),
     songEmbed(audioSourceVar)
-  )
-
-def guessInput(): HtmlElement =
-  input(cls := "guess-input",
   )
 
 def songEmbed(songSrc: Var[String]): HtmlElement =
@@ -54,6 +50,10 @@ def playButton(): HtmlElement =
     onClick --> { _ => audioSourceVar.set(game.songLibrary.songs.head.sourcePath)}
   )
 
+def guessElement(): HtmlElement =
+  input(cls := List("guess", "guess-box"),
+    readOnly := true,
+  )
 
 def searchField(): HtmlElement =
   val searchQueryVar = Var("")
@@ -61,7 +61,7 @@ def searchField(): HtmlElement =
   div(
     cls := "container",
     input(
-      cls := "guess-input",
+      cls := List("guess-input", "guess-box"),
       typ := "text",
       placeholder := "Runaway...",
       inContext { thisNode =>

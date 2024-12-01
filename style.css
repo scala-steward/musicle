@@ -74,9 +74,9 @@ ul {
   position: relative;
 }
 
+/* Updated styles for searched-songs */
 ul.searched-songs {
-  background-color: black;
-
+  background-color: #000; /* Black background for the dropdown */
   position: absolute;
   top: 100%;
   left: 0;
@@ -95,9 +95,9 @@ ul.searched-songs .song {
   align-items: center; /* Vertical centering */
   justify-content: center; /* Optional: center horizontally */
   padding: 0.5em; /* Padding for clickable area */
-  background-color: #2a2a3c; /* Neutral dark background */
+  background-color: #1b1b26; /* Neutral dark background */
   color: #ffffff; /* White text */
-  border-bottom: 1px solid #3a3a5e; /* Divider between items */
+  border-bottom: 1px solid #222237; /* Divider between items */
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
 }
@@ -123,8 +123,7 @@ ul.searched-songs .song:active {
   vertical-align: middle;
 }
 
-/* Guess input styling */
-input.guess-input {
+.guess-box {
   height: 45px;
   font-size: 1rem;
   width: 100%;
@@ -132,10 +131,15 @@ input.guess-input {
   border-radius: 8px;
   border: 2px solid #ff6f61;
   background-color: #3a3a5e;
+  box-sizing: border-box; /* Ensure padding doesn't affect layout */
+}
+
+/* Guess input styling */
+input.guess-input {
   color: #ffffff;
   outline: none;
   transition: all 0.3s ease-in-out;
-  box-sizing: border-box; /* Ensure padding doesn't affect layout */
+
 }
 
 input.guess-input:focus {
@@ -201,7 +205,7 @@ audio #music {
   justify-content: space-between;
 }
 
-ul {
+ul.guess-container {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
