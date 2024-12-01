@@ -54,11 +54,6 @@ def playButton(): HtmlElement =
     onClick --> { _ => audioSourceVar.set(game.songLibrary.songs.head.sourcePath)}
   )
 
-val animals = List(
-  "Cat", "Dog", "Elephant", "Fish", "Gorilla",
-  "Monkey", "Turtle", "Whale", "Alligator",
-  "Donkey", "Horse"
-)
 
 val searchQueryVar = Var("")
 
@@ -77,7 +72,7 @@ def searchField(): HtmlElement =
       children <-- searchQueryVar.signal.map { query =>
         game.songLibrary.songs
           .filter(_.title.toLowerCase.contains(query.toLowerCase))
-          .map(animal => li(cls := "animals", h2(animal.title)))
+          .map(song => li(cls := "song", h2(song.title)))
       }
     )
   )
