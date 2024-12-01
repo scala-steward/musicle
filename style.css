@@ -102,7 +102,6 @@ ul.searched-songs .song {
   display: flex;
   align-items: center; /* Vertical centering */
   justify-content: center; /* Optional: center horizontally */
-  padding: 0.5em; /* Padding for clickable area */
   background-color: #1b1b26; /* Neutral dark background */
   color: #ffffff; /* White text */
   border-bottom: 1px solid #222237; /* Divider between items */
@@ -203,6 +202,11 @@ audio #music {
   button {
     width: 100%;
   }
+}
+
+/* Hide border on empty lists */
+ul:empty {
+  border: none;
 }
 
 /* Ensure vertical scaling works for tall screens */
