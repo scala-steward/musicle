@@ -86,7 +86,8 @@ ul.searched-songs {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px; /* Space between items */
+  border: 3px solid black;
+  box-sizing: border-box; /* Ensure padding doesn't affect layout */
 }
 
 ul.searched-songs .song {

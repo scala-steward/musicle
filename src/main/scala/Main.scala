@@ -24,7 +24,6 @@ def gameComponent(): HtmlElement =
   mainTag(
     h1("Hello Musicle!"),
     h2(msg),
-    searchField(),
     ul(
       li(guessInput()),
       li(guessInput()),
@@ -33,6 +32,7 @@ def gameComponent(): HtmlElement =
       li(guessInput()),
     ),
     playButton(),
+    searchField(),
     songEmbed(audioSourceVar)
   )
 
@@ -72,7 +72,13 @@ def searchField(): HtmlElement =
       children <-- searchQueryVar.signal.map { query =>
         game.songLibrary.songs
           .filter(_.title.toLowerCase.contains(query.toLowerCase))
-          .map(song => li(cls := "song", p(text := song.title)))
+          .take(3)
+          .map(song =>
+            li(cls := "song",
+              p(song.title),
+              onClick --> { _ => ??? }
+            )
+          )
       }
     )
   )
