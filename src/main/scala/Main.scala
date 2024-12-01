@@ -69,15 +69,18 @@ def searchField(): HtmlElement =
     ),
     ul(cls := "searched-songs",
       children <-- searchQueryVar.signal.map { query =>
-        game.songLibrary.songs
-          .filter(_.title.toLowerCase.contains(query.toLowerCase))
-          .take(3)
-          .map(song =>
-            li(cls := "song",
-              p(song.title),
-              onClick --> { _ => ??? }
+        query.trim match {
+          case "" => Nil
+          case _ => game.songLibrary.songs
+            .filter(_.title.toLowerCase.contains(query.toLowerCase))
+            .take(5)
+            .map(song =>
+              li(cls := "song",
+                p(song.title),
+                onClick --> { _ => ??? }
+              )
             )
-          )
+        }
       }
     )
   )
