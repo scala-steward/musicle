@@ -55,9 +55,9 @@ def playButton(): HtmlElement =
   )
 
 
-val searchQueryVar = Var("")
-
 def searchField(): HtmlElement =
+  val searchQueryVar = Var("")
+
   div(
     cls := "container",
     input(
