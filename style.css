@@ -75,7 +75,6 @@ ul {
 }
 
 ul.searched-songs {
-  color: black;
   background-color: black;
 
   position: absolute;
@@ -85,6 +84,11 @@ ul.searched-songs {
   z-index: 10;
   margin: 0;
   padding: 0;
+}
+
+.song {
+  height: 2em;
+  vertical-align: middle;
 }
 
 /* Guess input styling */

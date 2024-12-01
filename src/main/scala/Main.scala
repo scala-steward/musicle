@@ -72,7 +72,7 @@ def searchField(): HtmlElement =
       children <-- searchQueryVar.signal.map { query =>
         game.songLibrary.songs
           .filter(_.title.toLowerCase.contains(query.toLowerCase))
-          .map(song => li(cls := "song", h2(song.title)))
+          .map(song => li(cls := "song", p(text := song.title)))
       }
     )
   )
