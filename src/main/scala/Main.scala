@@ -1,3 +1,4 @@
+import Game.Game
 import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom

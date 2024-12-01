@@ -1,3 +1,7 @@
+package Game
+
+import Game.Song
+
 class SongLibrary:
   var songs: List[Song] = loadSongs()
 
