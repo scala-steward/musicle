@@ -90,6 +90,14 @@ ul.searched-songs {
   box-sizing: border-box; /* Ensure padding doesn't affect layout */
 }
 
+main {
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+main > * {
+  margin-bottom: 20px;
+}
+
 ul.searched-songs .song {
   display: flex;
   align-items: center; /* Vertical centering */
