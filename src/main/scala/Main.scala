@@ -24,6 +24,7 @@ def gameComponent(): HtmlElement =
   mainTag(
     h1("Hello Musicle!"),
     h2(msg),
+    searchField(),
     ul(
       li(guessInput()),
       li(guessInput()),
@@ -51,6 +52,34 @@ def songEmbed(songSrc: Var[String]): HtmlElement =
 def playButton(): HtmlElement =
   button("Play",
     onClick --> { _ => audioSourceVar.set(game.songLibrary.songs.head.sourcePath)}
+  )
+
+val animals = List(
+  "Cat", "Dog", "Elephant", "Fish", "Gorilla",
+  "Monkey", "Turtle", "Whale", "Alligator",
+  "Donkey", "Horse"
+)
+
+val searchQueryVar = Var("")
+
+def searchField(): HtmlElement =
+  div(
+    cls := "container",
+    input(
+      cls := "guess-input",
+      typ := "text",
+      placeholder := "Runaway...",
+      inContext { thisNode =>
+        onInput.mapTo(thisNode.ref.value) --> searchQueryVar
+      }
+    ),
+    ul(cls := "searched-songs",
+      children <-- searchQueryVar.signal.map { query =>
+        game.songLibrary.songs
+          .filter(_.title.toLowerCase.contains(query.toLowerCase))
+          .map(animal => li(cls := "animals", h2(animal.title)))
+      }
+    )
   )
 
 

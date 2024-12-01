@@ -70,12 +70,28 @@ ul {
   gap: 2px; /* Add space between list items */
 }
 
+.container {
+  position: relative;
+}
+
+ul.searched-songs {
+  color: black;
+  background-color: black;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+}
+
 /* Guess input styling */
 input.guess-input {
   height: 45px;
   font-size: 1rem;
   width: 100%;
-  max-width: 90%;
   padding: 0 10px;
   border-radius: 8px;
   border: 2px solid #ff6f61;
