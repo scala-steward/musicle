@@ -84,6 +84,37 @@ ul.searched-songs {
   z-index: 10;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Space between items */
+}
+
+ul.searched-songs .song {
+  display: flex;
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Optional: center horizontally */
+  padding: 0.5em; /* Padding for clickable area */
+  background-color: #2a2a3c; /* Neutral dark background */
+  color: #ffffff; /* White text */
+  border-bottom: 1px solid #3a3a5e; /* Divider between items */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+}
+
+ul.searched-songs .song:last-child {
+  border-bottom: none; /* Remove border for the last item */
+}
+
+/* Hover effect */
+ul.searched-songs .song:hover {
+  background-color: #3a3a5e; /* Slightly lighter background */
+  color: #ffd700; /* Highlight color */
+}
+
+/* Active (clicked) state */
+ul.searched-songs .song:active {
+  background-color: #484864; /* Even lighter background */
+  color: #ff6f61; /* Soft red text */
 }
 
 .song {
