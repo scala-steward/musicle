@@ -22,8 +22,7 @@ def appElement(): HtmlElement =
 
 def gameComponent(): HtmlElement =
   mainTag(
-    h1("Hello Musicle!"),
-    h2(msg),
+    h1("Hello Musicle! V1.0"),
     ul(cls := "guess-container",
       li(guessElement()),
       li(guessElement()),
@@ -82,6 +81,3 @@ def searchField(): HtmlElement =
       }
     )
   )
-
-
-def msg = "I was compiled by Scala 3. :)"
