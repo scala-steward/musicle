@@ -2,9 +2,9 @@ package Game
 
 import Game.Song
 
-class SongLibrary:
-  var songs: List[Song] = loadSongs()
+case class SongLibrary(songs: List[Song])
 
+object SongLibrary:
   def loadSongs(): List[Song] =
     List(
       Song("Ghost Town", Album("Ghost Town"), Author("The Specials"), "THE_SPECIALS_Ghost_Town_1981.ogg"),

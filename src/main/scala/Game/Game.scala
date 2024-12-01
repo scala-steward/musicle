@@ -1,7 +1,5 @@
 package Game
 
-class Game:
-  val songLibrary: SongLibrary = SongLibrary()
+class Game(actualSong: Song):
+  private var guesses: List[Song] = List()
 
-  def guessSong(song: Song): Boolean =
-    ???

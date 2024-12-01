@@ -8,7 +8,8 @@ import org.scalajs.dom
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
 
 val audioSourceVar: Var[String] = Var("")
-val game: Game = Game()
+val songLibrary: SongLibrary = SongLibrary(SongLibrary.loadSongs())
+val game: Game = Game(songLibrary.songs.head)
 
 def appElement(): HtmlElement =
   div(
@@ -47,7 +48,7 @@ def songEmbed(songSrc: Var[String]): HtmlElement =
 
 def playButton(): HtmlElement =
   button("Play",
-    onClick --> { _ => audioSourceVar.set(game.songLibrary.songs.head.sourcePath)}
+    onClick --> { _ => audioSourceVar.set(songLibrary.songs.head.sourcePath)}
   )
 
 def guessElement(): HtmlElement =
@@ -57,7 +58,7 @@ def guessElement(): HtmlElement =
 
 def searchField(): HtmlElement =
   val searchQueryVar = Var("")
-  val selectedSong: Var[Song] = Var(game.songLibrary.songs.head)
+  val selectedSong: Var[Song] = Var(songLibrary.songs.head)
 
   div(
     cls := "container",
@@ -74,7 +75,7 @@ def searchField(): HtmlElement =
       children <-- searchQueryVar.signal.map { query =>
         query.trim match {
           case "" => Nil
-          case _ => game.songLibrary.songs
+          case _ => songLibrary.songs
             .filter { case (song) => song.toString.toLowerCase.contains(query.toLowerCase) }
             .take(5)
             .map(song =>
