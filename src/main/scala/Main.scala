@@ -86,11 +86,15 @@ def searchField(): HtmlElement =
               li(cls := "song",
                 p(song.toString),
                 onClick --> { _ =>
+                  // Update states
                   selectedSong.set(song)
                   searchQueryVar.set(song.toString)
-                  dom.console.log(song.toString)
-                  dom.console.log(game.guessSong(song))
-                  guessSlotVars(0).set(GuessSlot(song.toString))
+
+                  val guessSlotIndex = game.currentGuessSlotIndex()
+                  dom.console.log(guessSlotIndex)
+                  guessSlotVars(guessSlotIndex).set(GuessSlot(song.toString))
+
+                  game.guessSong(song)
                 }
               )
             )

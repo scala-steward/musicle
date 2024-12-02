@@ -67,7 +67,7 @@ Need to have:
 - ~~Search functionality~~
 - Play some sound
 - Play sound in chunks
-- Submit guesses
+- ~~Submit guesses~~
 
 Nice to have:
 - Music controls (Progress bar and play/pause button)
