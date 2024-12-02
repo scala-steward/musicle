@@ -64,14 +64,14 @@ Built using the following technology:
 
 ## TODO
 Need to have:
-- Search functionality
+- ~~Search functionality~~
 - Play some sound
 - Play sound in chunks
 - Submit guesses
 
 Nice to have:
 - Music controls (Progress bar and play/pause button)
-- Nice looking search results
+- ~~Nice looking search results~~
 - Automatically pick sound for the day (Probably by hashing the date)
 - Persistent guessing
 
