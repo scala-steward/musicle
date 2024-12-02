@@ -10,6 +10,7 @@ import org.scalajs.dom
 val audioSourceVar: Var[String] = Var("")
 val songLibrary: SongLibrary = SongLibrary(SongLibrary.loadSongs())
 val game: Game = Game(songLibrary.songs.head)
+var guessSlotVars: List[Var[GuessSlot]] = List()
 
 def appElement(): HtmlElement =
   div(
@@ -23,18 +24,20 @@ def appElement(): HtmlElement =
   )
 
 def gameComponent(): HtmlElement =
+  // Initialize guess slot Vars
+  val slots = (0 until 5).map(_ => Var(GuessSlot(""))).toList
+  guessSlotVars = slots // Update the global state (if needed)
+
+  val initialSlots = guessSlotVars.map(guessElement)
+
   mainTag(
     h1("Hello Musicle! V1.0"),
     ul(cls := "guess-container",
-      li(guessElement()),
-      li(guessElement()),
-      li(guessElement()),
-      li(guessElement()),
-      li(guessElement()),
+      initialSlots.map(li(_))
     ),
     playButton(),
     searchField(),
-    songEmbed(audioSourceVar)
+    songEmbed(audioSourceVar),
   )
 
 def songEmbed(songSrc: Var[String]): HtmlElement =
@@ -51,9 +54,10 @@ def playButton(): HtmlElement =
     onClick --> { _ => audioSourceVar.set(songLibrary.songs.head.sourcePath)}
   )
 
-def guessElement(): HtmlElement =
+def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
   input(cls := List("guess", "guess-box"),
     readOnly := true,
+    value <-- guessSlot.signal.map(_.text)
   )
 
 def searchField(): HtmlElement =
@@ -85,7 +89,8 @@ def searchField(): HtmlElement =
                   selectedSong.set(song)
                   searchQueryVar.set(song.toString)
                   dom.console.log(song.toString)
-                  game.guessSong(song)
+                  dom.console.log(game.guessSong(song))
+                  guessSlotVars(0).set(GuessSlot(song.toString))
                 }
               )
             )
@@ -93,3 +98,5 @@ def searchField(): HtmlElement =
       }
     )
   )
+
+case class GuessSlot(text: String)
