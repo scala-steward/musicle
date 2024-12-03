@@ -5,6 +5,7 @@ val scala3Version = "3.5.2"
 lazy val root = project
   .in(file("."))
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
+  .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
   .settings(
     name := "Musicle",
     version := "0.1.0-SNAPSHOT",
@@ -28,4 +29,7 @@ lazy val root = project
     },
 
     libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0",
+
+    // Tell ScalablyTyped that we manage `npm install` ourselves
+    externalNpm := baseDirectory.value,
   )
