@@ -40,18 +40,28 @@ def gameComponent(): HtmlElement =
     songEmbed(audioSourceVar),
   )
 
+val audioVar = Var[Option[dom.html.Audio]](None) // Store the audio element reference reactively
+
 def songEmbed(songSrc: Var[String]): HtmlElement =
   audioTag(
     idAttr := "music",
+    onMountCallback(ctx => {
+      // Capture the audio element on mount
+      val audioElement = ctx.thisNode.ref.asInstanceOf[dom.html.Audio]
+      audioVar.set(Some(audioElement))
+    }),
     sourceTag(
       src <-- songSrc.signal,
-      `type` := "audio/ogg",
+      `type` := "audio/mpeg",
     )
   )
 
 def playButton(): HtmlElement =
   button("Play",
-    onClick --> { _ => audioSourceVar.set(songLibrary.songs.head.sourcePath)}
+    onClick --> { _ =>
+      audioSourceVar.set(songLibrary.songs(0).sourcePath)
+      audioVar.now().foreach(_.play())
+    }
   )
 
 def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
