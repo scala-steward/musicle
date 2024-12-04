@@ -5,6 +5,7 @@ val scala3Version = "3.5.2"
 lazy val root = project
   .in(file("."))
   .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
+  .enablePlugins(ScalaJSBundlerPlugin) // Enable ScalaJSBundlerPlugin for npm dependencies
   .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
   .settings(
     name := "Musicle",
@@ -24,7 +25,7 @@ lazy val root = project
      *   (in particular, for the standard library)
      */
     scalaJSLinkerConfig ~= {
-      _.withModuleKind(ModuleKind.ESModule)
+      _.withModuleKind(ModuleKind.CommonJSModule)
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
 
@@ -32,4 +33,9 @@ lazy val root = project
 
     // Tell ScalablyTyped that we manage `npm install` ourselves
     externalNpm := baseDirectory.value,
+
+    Compile / npmDependencies ++= Seq(
+        "howler" -> "2.2.4",
+        "@types/howler" -> "2.2.4"
+    ),
   )
