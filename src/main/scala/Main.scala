@@ -62,7 +62,7 @@ def songEmbed(songSrc: Var[String]): HtmlElement =
 def playButton(): HtmlElement =
   val audio = new Howl(
     js.Dynamic.literal(
-      src = js.Array(songLibrary.songs(0).sourcePath) // Replace with actual path
+      src = js.Array(game.actualSong.sourcePath)
     ).asInstanceOf[typings.howler.mod.HowlOptions]
   )
 

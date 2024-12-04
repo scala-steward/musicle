@@ -1,6 +1,6 @@
 package Game
 
-class Game(actualSong: Song):
+class Game(val actualSong: Song):
   private var guesses: List[Song] = List()
   def currentGuessSlotIndex(): Int = guesses.length
 
