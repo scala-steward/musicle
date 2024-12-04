@@ -2,6 +2,9 @@ import Game.*
 import com.raquo.laminar.api.L.{*, given}
 import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
+import typings.howler.mod.*
+import scala.scalajs.js
+import scala.scalajs.js.annotation.JSImport
 
 @main def hello(): Unit =
   // Laminar initialization
@@ -57,11 +60,16 @@ def songEmbed(songSrc: Var[String]): HtmlElement =
   )
 
 def playButton(): HtmlElement =
+  val audio = new Howl(
+    js.Dynamic.literal(
+      src = js.Array(songLibrary.songs(0).sourcePath) // Replace with actual path
+    ).asInstanceOf[typings.howler.mod.HowlOptions]
+  )
+
+  audio.load()
+
   button("Play",
-    onClick --> { _ =>
-      audioSourceVar.set(songLibrary.songs(0).sourcePath)
-      audioVar.now().foreach(_.play())
-    }
+    onClick --> { _ => audio.play() }
   )
 
 def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
