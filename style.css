@@ -139,6 +139,7 @@ ul.searched-songs .song:active {
   border: 2px solid #ff6f61;
   background-color: #3a3a5e;
   box-sizing: border-box; /* Ensure padding doesn't affect layout */
+  color: white;
 }
 
 /* Guess input styling */
