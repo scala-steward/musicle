@@ -15,6 +15,16 @@ val songLibrary: SongLibrary = SongLibrary(SongLibrary.loadSongs())
 val game: Game = Game(songLibrary.songs.head)
 var guessSlotVars: List[Var[GuessSlot]] = List()
 
+val audio = new Howl(
+    js.Dynamic.literal(
+      src = js.Array(game.actualSong.sourcePath),
+      sprite = js.Dictionary(
+        "blast" -> js.Array(5000, 7000),
+        "blast2" -> js.Array(1000, 2000),
+      ),
+    ).asInstanceOf[typings.howler.mod.HowlOptions]
+  )
+
 def appElement(): HtmlElement =
   div(
     headerTag(
@@ -60,12 +70,6 @@ def songEmbed(songSrc: Var[String]): HtmlElement =
   )
 
 def playButton(): HtmlElement =
-  val audio = new Howl(
-    js.Dynamic.literal(
-      src = js.Array(game.actualSong.sourcePath)
-    ).asInstanceOf[typings.howler.mod.HowlOptions]
-  )
-
   audio.load()
 
   button("Play",
