@@ -66,7 +66,7 @@ Built using the following technology:
 Need to have:
 - ~~Search functionality~~
 - Play some sound
-- Play sound in chunks
+- ~~Play sound in stages~~
 - ~~Submit guesses~~
 
 Nice to have:
@@ -74,6 +74,7 @@ Nice to have:
 - ~~Nice looking search results~~
 - Automatically pick sound for the day (Probably by hashing the date)
 - Persistent guessing
+- Correct guess screen
 
 Neat to have:
 - Automatically deploy website on github or own server

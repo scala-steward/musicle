@@ -16,15 +16,23 @@ val songLibrary: SongLibrary = SongLibrary(SongLibrary.loadSongs())
 val game: Game = Game(songLibrary.songs.head)
 var guessSlotVars: List[Var[GuessSlot]] = List()
 
+val stageSprites = js.Dictionary(
+  "stage1" -> js.Array(0, 500),
+  "stage2" -> js.Array(0, 1_000),
+  "stage3" -> js.Array(0, 4_000),
+  "stage4" -> js.Array(0, 8_000),
+  "stage5" -> js.Array(0, 16_000),
+)
+
 val audio = new Howl(
     js.Dynamic.literal(
       src = js.Array(game.actualSong.sourcePath),
-      sprite = js.Dictionary(
-        "blast" -> js.Array(5000, 7000),
-        "blast2" -> js.Array(1000, 2000),
-      ),
+      sprite = stageSprites,
     ).asInstanceOf[typings.howler.mod.HowlOptions]
   )
+
+def playCurrentStage(): Unit =
+  audio.play(s"stage${game.currentGuessSlotIndex() + 1}")
 
 def appElement(): HtmlElement =
   div(
@@ -75,7 +83,7 @@ def playButton(): HtmlElement =
   audio.load()
 
   button("Play",
-    onClick --> { _ => audio.play() }
+    onClick --> { _ => playCurrentStage() }
   )
 
 def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
@@ -123,15 +131,17 @@ def searchField(): HtmlElement =
               li(cls := "song",
                 p(song.toString),
                 onClick --> { _ =>
-                  // Update states
+                  // Pre-guess
                   selectedSong.set(song)
                   searchQueryVar.set(song.toString)
 
-                  val guessSlotIndex = game.currentGuessSlotIndex()
-                  dom.console.log(guessSlotIndex)
-                  guessSlotVars(guessSlotIndex).set(GuessSlot(song.toString))
+                  guessSlotVars(game.currentGuessSlotIndex()).set(GuessSlot(song.toString))
 
+                  // Guess
                   game.guessSong(song)
+
+                  // Post-guess
+                  playCurrentStage()
                 }
               )
             )
