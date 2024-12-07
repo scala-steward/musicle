@@ -46,6 +46,8 @@ def appElement(): HtmlElement =
   )
 
 def gameComponent(): HtmlElement =
+  audio.load()
+
   // Initialize guess slot Vars
   val slots = (0 until 5).map(_ => Var(GuessSlot(""))).toList
   guessSlotVars = slots // Update the global state (if needed)
@@ -80,8 +82,6 @@ def songEmbed(songSrc: Var[String]): HtmlElement =
   )
 
 def playButton(): HtmlElement =
-  audio.load()
-
   button("Play",
     onClick --> { _ => playCurrentStage() }
   )
