@@ -11,7 +11,6 @@ import scala.compiletime.ops.float
   // Laminar initialization
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
 
-val audioSourceVar: Var[String] = Var("")
 val songLibrary: SongLibrary = SongLibrary(SongLibrary.loadSongs())
 val game: Game = Game(songLibrary.songs.head)
 var guessSlotVars: List[Var[GuessSlot]] = List()
@@ -62,23 +61,6 @@ def gameComponent(): HtmlElement =
     progressBar(),
     playButton(),
     searchField(),
-    songEmbed(audioSourceVar),
-  )
-
-val audioVar = Var[Option[dom.html.Audio]](None) // Store the audio element reference reactively
-
-def songEmbed(songSrc: Var[String]): HtmlElement =
-  audioTag(
-    idAttr := "music",
-    onMountCallback(ctx => {
-      // Capture the audio element on mount
-      val audioElement = ctx.thisNode.ref.asInstanceOf[dom.html.Audio]
-      audioVar.set(Some(audioElement))
-    }),
-    sourceTag(
-      src <-- songSrc.signal,
-      `type` := "audio/mpeg",
-    )
   )
 
 def playButton(): HtmlElement =
