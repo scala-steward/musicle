@@ -105,9 +105,24 @@ def progressBar(): HtmlElement =
     )
   )
 
+def songListElement(song: Song): HtmlElement =
+  li(cls := "song",
+    p(song.toString),
+    onClick --> { _ =>
+      // Pre-guess
+      guessSlotVars(game.currentGuessSlotIndex()).set(GuessSlot(song.toString))
+
+      // Guess
+      game.guessSong(song)
+
+      // Post-guess
+      playCurrentStage()
+    }
+  )
+
+
 def searchField(): HtmlElement =
   val searchQueryVar = Var("")
-  val selectedSong: Var[Song] = Var(songLibrary.songs.head)
 
   div(
     cls := "container",
@@ -127,24 +142,7 @@ def searchField(): HtmlElement =
           case _ => songLibrary.songs
             .filter(song => song.toString.toLowerCase.contains(query.toLowerCase) && !game.isGuessed(song))
             .take(5)
-            .map(song =>
-              li(cls := "song",
-                p(song.toString),
-                onClick --> { _ =>
-                  // Pre-guess
-                  selectedSong.set(song)
-                  searchQueryVar.set(song.toString)
-
-                  guessSlotVars(game.currentGuessSlotIndex()).set(GuessSlot(song.toString))
-
-                  // Guess
-                  game.guessSong(song)
-
-                  // Post-guess
-                  playCurrentStage()
-                }
-              )
-            )
+            .map(song => songListElement(song))
         }
       }
     )
