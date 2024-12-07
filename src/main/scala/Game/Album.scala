@@ -5,5 +5,4 @@ object Album:
 
   def apply(title: String): Album = title
 
-  extension (x: Album)
-    def toString: String = x
+  extension (x: Album) def toString: String = x

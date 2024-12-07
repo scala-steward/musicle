@@ -1,16 +1,15 @@
-import org.scalajs.linker.interface.{ModuleKind, ModuleSplitStyle}
+import org.scalajs.linker.interface.{ ModuleKind, ModuleSplitStyle }
 
 val scala3Version = "3.5.2"
 
 lazy val root = project
   .in(file("."))
-  .enablePlugins(ScalaJSPlugin) // Enable the Scala.js plugin in this project
+  .enablePlugins(ScalaJSPlugin)        // Enable the Scala.js plugin in this project
   .enablePlugins(ScalaJSBundlerPlugin) // Enable ScalaJSBundlerPlugin for npm dependencies
   .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
   .settings(
-    name := "Musicle",
-    version := "0.1.0-SNAPSHOT",
-
+    name         := "Musicle",
+    version      := "0.1.0-SNAPSHOT",
     scalaVersion := scala3Version,
     scalacOptions ++= Seq("-encoding", "utf-8", "-deprecation", "-feature"),
 
@@ -28,14 +27,12 @@ lazy val root = project
       _.withModuleKind(ModuleKind.CommonJSModule)
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
-
     libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0",
 
     // Tell ScalablyTyped that we manage `npm install` ourselves
     externalNpm := baseDirectory.value,
-
     Compile / npmDependencies ++= Seq(
-        "howler" -> "2.2.4",
-        "@types/howler" -> "2.2.4"
+      "howler"        -> "2.2.4",
+      "@types/howler" -> "2.2.4",
     ),
   )
