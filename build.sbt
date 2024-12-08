@@ -27,7 +27,9 @@ lazy val root = project
       _.withModuleKind(ModuleKind.CommonJSModule)
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
-    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0",
+    libraryDependencies ++= Seq(
+      "com.raquo" %%% "laminar" % "17.0.0",
+    ),
 
     // Tell ScalablyTyped that we manage `npm install` ourselves
     externalNpm := baseDirectory.value,
