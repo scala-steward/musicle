@@ -60,22 +60,3 @@ Built using the following technology:
 * [sbt](https://www.scala-sbt.org/)
 * [Vite](https://vitejs.dev/)
 * [Laminar](https://laminar.dev/)
-
-
-## TODO
-Need to have:
-- ~~Search functionality~~
-- ~~Play some sound~~
-- ~~Play sound in stages~~
-- ~~Submit guesses~~
-
-Nice to have:
-- Music controls (Progress bar and play/pause button)
-- ~~Nice looking search results~~
-- Automatically pick sound for the day (Probably by hashing the date)
-- Persistent guessing
-- Correct guess screen
-
-Neat to have:
-- Automatically deploy website on github or own server
-- Some kind of leaderboard
