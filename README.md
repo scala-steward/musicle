@@ -65,7 +65,7 @@ Built using the following technology:
 ## TODO
 Need to have:
 - ~~Search functionality~~
-- Play some sound
+- ~~Play some sound~~
 - ~~Play sound in stages~~
 - ~~Submit guesses~~
 
