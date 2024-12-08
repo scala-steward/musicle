@@ -12,7 +12,7 @@ import scala.compiletime.ops.float
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
 
 val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
-val game: Game                          = Game(songLibrary.songs.head)
+val game: Game                          = Game(SongPicker.TodaySong(songLibrary))
 var guessSlotVars: List[Var[GuessSlot]] = List()
 
 val stageSprites = js.Dictionary(
