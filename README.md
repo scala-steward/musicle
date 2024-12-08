@@ -1,5 +1,5 @@
 # Musicle
-![billede](https://github.com/user-attachments/assets/78335586-e6b9-4821-b924-cd3222a3b525)
+![billede](https://github.com/user-attachments/assets/73cab22a-b351-444f-9e73-b6138d81e843)
 
 Guess a piece of music by listening to it, similar to the Wordle game format.
 
