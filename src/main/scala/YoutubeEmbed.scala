@@ -23,10 +23,10 @@ object YoutubeEmbed:
         },
     )
 
-  def setSnippet(start: Int, end: Int) =
+  def setSnippet(startMs: Int, endMs: Int) =
     // Transaction?
-    youtubeStart.set(start)
-    youtubeEnd.set(end)
+    youtubeStart.set(math.ceil(startMs / 1000).toInt)
+    youtubeEnd.set(math.ceil(endMs / 1000).toInt)
 
   def play() =
     val iframe = dom.document.getElementById("ytplayer").asInstanceOf[dom.HTMLIFrameElement]

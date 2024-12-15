@@ -16,6 +16,14 @@ val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
 val game: Game                          = Game(SongPicker.TodaySong(songLibrary))
 var guessSlotVars: List[Var[GuessSlot]] = List()
 
+val stageSprites = List(
+  500,
+  1000,
+  2000,
+  4000,
+  8000,
+)
+
 def playCurrentStage(): Unit =
   play()
 
@@ -82,7 +90,8 @@ def songListElement(song: Song): HtmlElement =
       game.guessSong(song)
 
       // Post-guess
-      playCurrentStage()
+      setSnippet(0, stageSprites(game.currentGuessSlotIndex()))
+      //playCurrentStage()
     },
   )
 
