@@ -44,6 +44,9 @@ jobs:
     - name: Build Scala.js project
       run: sbt fastOptJS   # Use `fullOptJS` for production build
 
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+
     - name: Build with Vite
       run: npm run build  # This triggers Vite to bundle everything
 
