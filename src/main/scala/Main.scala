@@ -40,7 +40,7 @@ def gameComponent(): HtmlElement =
   val initialSlots = guessSlotVars.map(guessElement)
 
   mainTag(
-    component(),
+    component(game.actualSong),
     h1("Hello Musicle! V1.0"),
     ul(cls := "guess-container",
       initialSlots.map(li(_))
