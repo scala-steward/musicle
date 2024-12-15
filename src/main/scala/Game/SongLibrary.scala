@@ -34,6 +34,29 @@ object SongLibrary:
       Song("This Could Be a Dream", Album("The Gods We Can Touch"), Author("AURORA"), "DbiB1AtCA9k"),
       Song("A Little Place Called the Moon", Album("The Gods We Can Touch"), Author("AURORA"), "QdLNfkFWF0g"),
 
+      // Infection Of A Different Kind – Step 1
+      Song("Queendom", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "-PIC0wb8jgY"),
+      Song("Forgotten Love", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "Pm0GiTTAXUc"),
+      Song("Gentle Earthquakes", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "El_N-2V9iv8"),
+      Song("All Is Soft Inside", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "CRbrZtR8DOg"),
+      Song("It Happened Quiet", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "2wd7hOSPPP0"),
+      Song("Churchyard", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "KOhjQvUI3Qo"),
+      Song("Soft Universe", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "daHIgxDSLMY"),
+      Song("Infections Of A Different Kind", Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "7EmdiaUX-wI"),
+
+      // A Different Kind Of Human – Step 2
+      Song("The River", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "pz5FzFL2L7w"),
+      Song("Animal", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "eMM1FC3Tbe0"),
+      Song("Dance On The Moon", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "2GPh59K8_ys"),
+      Song("Daydreamer", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "soCJTCElcbk"),
+      Song("Hunger", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "TgAjyR3_2yM"),
+      Song("Soulless Creatures", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "EiWUBdyDk70"),
+      Song("In Bottles", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "1okNR0Dzyv8"),
+      Song("A Different Kind Of Human", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "WuPh0Ozd4EE"),
+      Song("Apple Tree", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "fgjId8R5RL8"),
+      Song("The Seed", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "JJTjc7iRNY8"),
+      Song("Mothership", Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "IP1Qhq8kQBY"),
+
       // What Happened To The Heart?
       Song("Echo Of My Shadow", Album("What Happended To The Heart?"), Author("AURORA"), "kkPYHeSU_y4"),
     )
