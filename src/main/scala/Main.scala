@@ -1,7 +1,9 @@
 import Game.*
+import YoutubeEmbed.*
 import com.raquo.laminar.api.L.{ *, given }
 import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import scala.compiletime.ops.float
@@ -15,7 +17,7 @@ val game: Game                          = Game(SongPicker.TodaySong(songLibrary)
 var guessSlotVars: List[Var[GuessSlot]] = List()
 
 def playCurrentStage(): Unit =
-  ???
+  play()
 
 def appElement(): HtmlElement =
   div(
@@ -29,7 +31,7 @@ def appElement(): HtmlElement =
   )
 
 def gameComponent(): HtmlElement =
-  //audio.load()
+  // audio.load()
 
   // Initialize guess slot Vars
   val slots = (0 until 5).map(_ => Var(GuessSlot(""))).toList
@@ -38,6 +40,7 @@ def gameComponent(): HtmlElement =
   val initialSlots = guessSlotVars.map(guessElement)
 
   mainTag(
+    component(),
     h1("Hello Musicle! V1.0"),
     ul(cls := "guess-container",
       initialSlots.map(li(_))
