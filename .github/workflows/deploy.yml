@@ -14,14 +14,32 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup JDK (for Scala.js)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adoptopenjdk'
+          java-version: '11'  # Adjust according to your version
+
+      - name: Setup Scala (sbt)
+        uses: olafurpg/setup-scala@v10
+        with:
+          scala-version: '3.5.2'  # Adjust to match your build.sbt
+          sbt-version: '1.5.5'    # Adjust according to your project
+
+      - name: Install Scala.js dependencies
+        run: sbt update
+
+      - name: Build Scala.js project
+        run: sbt fastOptJS   # Use `fullOptJS` for production build
+
+      - name: Install Node.js
         uses: actions/setup-node@v3
 
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+      - name: Install npm dependencies
+        run: npm install
 
-      - name: Build project
-        run: npm run build
+      - name: Build with Vite
+        run: npm run build  # This triggers Vite to bundle everything
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
@@ -47,4 +65,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-
