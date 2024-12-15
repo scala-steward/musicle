@@ -1,8 +1,9 @@
 import Game.*
+import YoutubeEmbed.*
 import com.raquo.laminar.api.L.{ *, given }
 import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
-import typings.howler.mod.*
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import scala.compiletime.ops.float
@@ -14,26 +15,14 @@ import scala.compiletime.ops.float
 val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
 val game: Game                          = Game(SongPicker.TodaySong(songLibrary))
 var guessSlotVars: List[Var[GuessSlot]] = List()
+val finishedGame: Var[Boolean]          = Var(false)
 
-val stageSprites = js.Dictionary(
-  "stage1" -> js.Array(0, 500),
-  "stage2" -> js.Array(0, 1_000),
-  "stage3" -> js.Array(0, 4_000),
-  "stage4" -> js.Array(0, 8_000),
-  "stage5" -> js.Array(0, 16_000),
-)
-
-val audio = new Howl(
-  js.Dynamic
-    .literal(
-      src = js.Array(game.actualSong.sourcePath),
-      sprite = stageSprites,
-    )
-    .asInstanceOf[typings.howler.mod.HowlOptions],
+val stageSprites = List(
+  500, 1000, 2000, 4000, 8000,
 )
 
 def playCurrentStage(): Unit =
-  audio.play(s"stage${game.currentGuessSlotIndex() + 1}")
+  play()
 
 def appElement(): HtmlElement =
   div(
@@ -47,7 +36,7 @@ def appElement(): HtmlElement =
   )
 
 def gameComponent(): HtmlElement =
-  audio.load()
+  // audio.load()
 
   // Initialize guess slot Vars
   val slots = (0 until 5).map(_ => Var(GuessSlot(""))).toList
@@ -56,11 +45,12 @@ def gameComponent(): HtmlElement =
   val initialSlots = guessSlotVars.map(guessElement)
 
   mainTag(
+    component(game.actualSong, finishedGame),
     h1("Hello Musicle! V1.0"),
     ul(cls := "guess-container",
       initialSlots.map(li(_))
     ),
-    progressBar(),
+    //progressBar(),
     playButton(),
     searchField(),
   )
@@ -73,18 +63,6 @@ def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
     readOnly := true, value <-- guessSlot.signal.map(_.text)
   )
 
-val progressbar: Var[Float] = Var(0)
-
-def progressBar(): HtmlElement =
-  js.timers.setInterval(50) {
-    progressbar.set((audio.seek() / audio.duration()).toFloat)
-  }
-
-  div(cls := "progressbar-container",
-    div(cls := "progressbar",
-      styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")
-    ),
-  )
 
 def songListElement(song: Song): HtmlElement =
   li(cls := "song",
@@ -94,10 +72,15 @@ def songListElement(song: Song): HtmlElement =
       guessSlotVars(game.currentGuessSlotIndex()).set(GuessSlot(song.toString))
 
       // Guess
-      game.guessSong(song)
+      val correct = game.guessSong(song)
+      dom.console.log(correct)
+      finishedGame.set(correct)
 
       // Post-guess
-      playCurrentStage()
+      if correct then setSnippet(0, 500)
+      else setSnippet(0, stageSprites(game.currentGuessSlotIndex()))
+
+      // playCurrentStage()
     },
   )
 
@@ -131,3 +114,15 @@ def searchField(): HtmlElement =
   )
 
 case class GuessSlot(text: String)
+
+val progressbar: Var[Float] = Var(0)
+
+def progressBar(): HtmlElement =
+  /*js.timers.setInterval(50) {
+    progressbar.set((audio.seek() / audio.duration()).toFloat)
+  }*/
+
+  div(
+    cls := "progressbar-container",
+    div(cls := "progressbar", styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")),
+  )
