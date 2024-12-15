@@ -15,25 +15,8 @@ val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
 val game: Game                          = Game(SongPicker.TodaySong(songLibrary))
 var guessSlotVars: List[Var[GuessSlot]] = List()
 
-val stageSprites = js.Dictionary(
-  "stage1" -> js.Array(0, 500),
-  "stage2" -> js.Array(0, 1_000),
-  "stage3" -> js.Array(0, 4_000),
-  "stage4" -> js.Array(0, 8_000),
-  "stage5" -> js.Array(0, 16_000),
-)
-
-val audio = new Howl(
-  js.Dynamic
-    .literal(
-      src = js.Array(game.actualSong.sourcePath),
-      sprite = stageSprites,
-    )
-    .asInstanceOf[typings.howler.mod.HowlOptions],
-)
-
 def playCurrentStage(): Unit =
-  audio.play(s"stage${game.currentGuessSlotIndex() + 1}")
+  ???
 
 def appElement(): HtmlElement =
   div(
@@ -47,7 +30,7 @@ def appElement(): HtmlElement =
   )
 
 def gameComponent(): HtmlElement =
-  audio.load()
+  //audio.load()
 
   // Initialize guess slot Vars
   val slots = (0 until 5).map(_ => Var(GuessSlot(""))).toList
@@ -76,9 +59,9 @@ def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
 val progressbar: Var[Float] = Var(0)
 
 def progressBar(): HtmlElement =
-  js.timers.setInterval(50) {
+  /*js.timers.setInterval(50) {
     progressbar.set((audio.seek() / audio.duration()).toFloat)
-  }
+  }*/
 
   div(cls := "progressbar-container",
     div(cls := "progressbar",

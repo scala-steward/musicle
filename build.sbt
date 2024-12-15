@@ -34,7 +34,5 @@ lazy val root = project
     // Tell ScalablyTyped that we manage `npm install` ourselves
     externalNpm := baseDirectory.value,
     Compile / npmDependencies ++= Seq(
-      "howler"        -> "2.2.4",
-      "@types/howler" -> "2.2.4",
     ),
   )
