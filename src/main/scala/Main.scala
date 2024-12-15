@@ -15,6 +15,7 @@ import scala.compiletime.ops.float
 val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
 val game: Game                          = Game(SongPicker.TodaySong(songLibrary))
 var guessSlotVars: List[Var[GuessSlot]] = List()
+val finishedGame: Var[Boolean] = Var(false)
 
 val stageSprites = List(
   500,
@@ -48,7 +49,7 @@ def gameComponent(): HtmlElement =
   val initialSlots = guessSlotVars.map(guessElement)
 
   mainTag(
-    component(game.actualSong),
+    component(game.actualSong, finishedGame),
     h1("Hello Musicle! V1.0"),
     ul(cls := "guess-container",
       initialSlots.map(li(_))
@@ -89,6 +90,7 @@ def songListElement(song: Song): HtmlElement =
       // Guess
       val correct = game.guessSong(song)
       dom.console.log(correct)
+      finishedGame.set(correct)
 
       // Post-guess
       if correct then

@@ -12,11 +12,12 @@ object YoutubeEmbed:
   private def sendPostMessage(iframe: dom.HTMLIFrameElement, command: String): Unit =
     iframe.contentWindow.postMessage(command, "*")
 
-  def component(song: Song): HtmlElement =
+  def component(song: Song, finished: Var[Boolean]): HtmlElement =
     youtubeVideoSource.set(song.sourcePath)
 
     iframe(
       idAttr := "ytplayer",
+      hidden <-- finished.signal.map(f => !f),
       src <-- youtubeVideoSource.signal
         .combineWithFn(youtubeStart.signal, youtubeEnd.signal) { (videoSource, start, end) =>
           s"https://www.youtube-nocookie.com/embed/$videoSource?enablejsapi=1&start=$start&end=$end"
