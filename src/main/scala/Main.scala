@@ -54,7 +54,7 @@ def gameComponent(): HtmlElement =
     ul(cls := "guess-container",
       initialSlots.map(li(_))
     ),
-    progressBar(),
+    //progressBar(),
     playButton(),
     searchField(),
   )
@@ -67,18 +67,6 @@ def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
     readOnly := true, value <-- guessSlot.signal.map(_.text)
   )
 
-val progressbar: Var[Float] = Var(0)
-
-def progressBar(): HtmlElement =
-  /*js.timers.setInterval(50) {
-    progressbar.set((audio.seek() / audio.duration()).toFloat)
-  }*/
-
-  div(cls := "progressbar-container",
-    div(cls := "progressbar",
-      styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")
-    ),
-  )
 
 def songListElement(song: Song): HtmlElement =
   li(cls := "song",
@@ -132,3 +120,15 @@ def searchField(): HtmlElement =
   )
 
 case class GuessSlot(text: String)
+
+val progressbar: Var[Float] = Var(0)
+
+def progressBar(): HtmlElement =
+  /*js.timers.setInterval(50) {
+    progressbar.set((audio.seek() / audio.duration()).toFloat)
+  }*/
+
+  div(
+    cls := "progressbar-container",
+    div(cls := "progressbar", styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")),
+  )
