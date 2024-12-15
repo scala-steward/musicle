@@ -2,7 +2,6 @@ import Game.*
 import com.raquo.laminar.api.L.{ *, given }
 import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
-import typings.howler.mod.*
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import scala.compiletime.ops.float
