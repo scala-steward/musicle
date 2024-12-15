@@ -30,7 +30,6 @@ object YoutubeEmbed:
 
   def play() =
     val iframe = dom.document.getElementById("ytplayer").asInstanceOf[dom.HTMLIFrameElement]
-    dom.console.log(iframe)
     sendPostMessage(iframe, """{ "event": "command", "func": "playVideo" }""")
 
   def pause() =

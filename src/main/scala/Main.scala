@@ -87,10 +87,15 @@ def songListElement(song: Song): HtmlElement =
       guessSlotVars(game.currentGuessSlotIndex()).set(GuessSlot(song.toString))
 
       // Guess
-      game.guessSong(song)
+      val correct = game.guessSong(song)
+      dom.console.log(correct)
 
       // Post-guess
-      setSnippet(0, stageSprites(game.currentGuessSlotIndex()))
+      if correct then
+        setSnippet(0, 500)
+      else
+        setSnippet(0, stageSprites(game.currentGuessSlotIndex()))
+
       //playCurrentStage()
     },
   )
