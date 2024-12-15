@@ -59,4 +59,19 @@ object SongLibrary:
 
       // What Happened To The Heart?
       Song("Echo Of My Shadow", Album("What Happended To The Heart?"), Author("AURORA"), "kkPYHeSU_y4"),
+      Song("To Be Alright", Album("What Happended To The Heart?"), Author("AURORA"), "kcSfjgyP6Bg"),
+      Song("Your Blood", Album("What Happended To The Heart?"), Author("AURORA"), "89GvgJ0Rn54"),
+      Song("The Conflict Of The Mind", Album("What Happended To The Heart?"), Author("AURORA"), "XO2tAfUe2HU"),
+      Song("Some Type Of Skin", Album("What Happended To The Heart?"), Author("AURORA"), "b1pMORnf0Hs"),
+      Song("The Essence", Album("What Happended To The Heart?"), Author("AURORA"), "iwthrbcxLFs"),
+      Song("Earthly Delights", Album("What Happended To The Heart?"), Author("AURORA"), "BbuJh-DtI2o"),
+      Song("When The Dark Dresses Lightly", Album("What Happended To The Heart?"), Author("AURORA"), "jqstwM5dN90"),
+      Song("A Soul With No King", Album("What Happended To The Heart?"), Author("AURORA"), "xulbh2x7MKE"),
+      Song("Dreams", Album("What Happended To The Heart?"), Author("AURORA"), "g1js5rl4n1g"),
+      Song("My Name (feat. Ane Brun)", Album("What Happended To The Heart?"), Author("AURORA"), "cFigdwdinY0"),
+      Song("Do You Feel?", Album("What Happended To The Heart?"), Author("AURORA"), "JVZJmJIBc3E"),
+      Song("Starvation", Album("What Happended To The Heart?"), Author("AURORA"), "aCpLcXLiYDo"),
+      Song("The Blade", Album("What Happended To The Heart?"), Author("AURORA"), "mjvPT3jJhLs"),
+      Song("My Body Is Not Mine", Album("What Happended To The Heart?"), Author("AURORA"), "9W9B5-J0ZKI"),
+      Song("Invisible Wounds", Album("What Happended To The Heart?"), Author("AURORA"), "CHP8SVE4yCQ"),
     )
