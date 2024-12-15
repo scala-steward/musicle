@@ -15,14 +15,10 @@ import scala.compiletime.ops.float
 val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
 val game: Game                          = Game(SongPicker.TodaySong(songLibrary))
 var guessSlotVars: List[Var[GuessSlot]] = List()
-val finishedGame: Var[Boolean] = Var(false)
+val finishedGame: Var[Boolean]          = Var(false)
 
 val stageSprites = List(
-  500,
-  1000,
-  2000,
-  4000,
-  8000,
+  500, 1000, 2000, 4000, 8000,
 )
 
 def playCurrentStage(): Unit =
@@ -81,12 +77,10 @@ def songListElement(song: Song): HtmlElement =
       finishedGame.set(correct)
 
       // Post-guess
-      if correct then
-        setSnippet(0, 500)
-      else
-        setSnippet(0, stageSprites(game.currentGuessSlotIndex()))
+      if correct then setSnippet(0, 500)
+      else setSnippet(0, stageSprites(game.currentGuessSlotIndex()))
 
-      //playCurrentStage()
+      // playCurrentStage()
     },
   )
 
