@@ -176,6 +176,10 @@ button:active {
   background-color: #e94336; /* Even darker shade */
 }
 
+button.grey-button {
+  background-color: #1e1e2f;
+}
+
 /* Audio embed styling */
 audio {
   margin-top: 20px;

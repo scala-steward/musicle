@@ -41,8 +41,21 @@ def gameComponent(): HtmlElement =
       initialSlots.map(li(_))
     ),
     //progressBar(),
+    skipButton(),
     playButton(),
     searchField(),
+  )
+
+def skipButton(): HtmlElement =
+  button(
+    "Skip",
+    cls := "grey-button",
+    onClick --> { _ =>
+      guessSlotVars(game.currentStage()).set(GuessSlot(" - Skipped -"))
+
+      game.skipStage()
+      game.loadStage()
+    },
   )
 
 def playButton(): HtmlElement =
@@ -61,13 +74,13 @@ def songListElement(song: Song): HtmlElement =
       guessSlotVars(game.currentStage()).set(GuessSlot(song.toString))
 
       // Guess
-      val correct = game.guessSong(song)
+      val correct = game.guessStage(song)
       dom.console.log(correct)
       finishedGame.set(correct || game.currentStage() == game.maxGuesses)
 
       // Post-guess
+      game.loadStage()
       if correct then audioController.setSnippet(0, 500_000) // Play whole song
-      else game.loadStage()
 
       game.playCurrentStage()
     },
