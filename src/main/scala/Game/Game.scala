@@ -1,7 +1,9 @@
 package Game
 
 class Game(val actualSong: Song):
+  val maxGuesses = 5
   private var guesses: List[Song]  = List()
+
   def currentGuessSlotIndex(): Int = guesses.length
 
   def isGuessed(guessedSong: Song): Boolean =

@@ -39,7 +39,7 @@ def gameComponent(): HtmlElement =
   // audio.load()
 
   // Initialize guess slot Vars
-  val slots = (0 until 5).map(_ => Var(GuessSlot(""))).toList
+  val slots = (0 until game.maxGuesses).map(_ => Var(GuessSlot(""))).toList
   guessSlotVars = slots // Update the global state (if needed)
 
   val initialSlots = guessSlotVars.map(guessElement)
@@ -74,7 +74,7 @@ def songListElement(song: Song): HtmlElement =
       // Guess
       val correct = game.guessSong(song)
       dom.console.log(correct)
-      finishedGame.set(correct)
+      finishedGame.set(correct || game.currentGuessSlotIndex() == game.maxGuesses)
 
       // Post-guess
       if correct then setSnippet(song.startOffset, 500 * 1000)
