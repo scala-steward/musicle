@@ -13,8 +13,8 @@ class Game(val actualSong: Song, audioController: AudioController):
     8000,
   )
 
-  def loadStage(song: Song, stageIndex: Integer): Unit =
-    audioController.setSnippet(song.startOffset, song.startOffset + stageSprites(stageIndex))
+  def loadStage(): Unit =
+    audioController.setSnippet(actualSong.startOffset, actualSong.startOffset + stageSprites(currentStage()))
 
   def playCurrentStage(): Unit =
     audioController.play()

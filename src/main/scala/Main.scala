@@ -11,6 +11,7 @@ import scala.compiletime.ops.float
 @main def hello(): Unit =
   // Laminar initialization
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
+  game.loadStage()
 
 val audioController: AudioController    = YoutubeEmbed
 val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
@@ -71,7 +72,7 @@ def songListElement(song: Song): HtmlElement =
 
       // Post-guess
       if correct then audioController.setSnippet(0, 500_000) // Play whole song
-      else game.loadStage(song, game.currentStage())
+      else game.loadStage()
 
       game.playCurrentStage()
     },
