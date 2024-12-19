@@ -77,8 +77,8 @@ def songListElement(song: Song): HtmlElement =
       finishedGame.set(correct)
 
       // Post-guess
-      if correct then setSnippet(0, 500)
-      else setSnippet(0, stageSprites(game.currentGuessSlotIndex()))
+      if correct then setSnippet(song.startOffset, 500 * 1000)
+      else setSnippet(song.startOffset, song.startOffset + stageSprites(game.currentGuessSlotIndex()))
 
       // playCurrentStage()
     },
