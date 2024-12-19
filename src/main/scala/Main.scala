@@ -1,5 +1,5 @@
 import Game.*
-import YoutubeEmbed.*
+import Audio.{ AudioController, YoutubeEmbed }
 import com.raquo.laminar.api.L.{ *, given }
 import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
@@ -12,17 +12,11 @@ import scala.compiletime.ops.float
   // Laminar initialization
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
 
+val audioController: AudioController    = YoutubeEmbed
 val songLibrary: SongLibrary            = SongLibrary(SongLibrary.loadSongs())
-val game: Game                          = Game(SongPicker.TodaySong(songLibrary))
+val game: Game                          = Game(SongPicker.TodaySong(songLibrary), audioController)
 var guessSlotVars: List[Var[GuessSlot]] = List()
 val finishedGame: Var[Boolean]          = Var(false)
-
-val stageSprites = List(
-  500, 1000, 2000, 4000, 8000,
-)
-
-def playCurrentStage(): Unit =
-  play()
 
 def appElement(): HtmlElement =
   div(
@@ -45,8 +39,8 @@ def gameComponent(): HtmlElement =
   val initialSlots = guessSlotVars.map(guessElement)
 
   mainTag(
-    component(game.actualSong, finishedGame),
-    h1("Hello Musicle! V1.0"),
+    YoutubeEmbed.component(game.actualSong.sourcePath, finishedGame),
+    h1("AUROLE: V1.0"),
     ul(cls := "guess-container",
       initialSlots.map(li(_))
     ),
@@ -56,31 +50,30 @@ def gameComponent(): HtmlElement =
   )
 
 def playButton(): HtmlElement =
-  button("Play", onClick --> { _ => playCurrentStage() })
+  button("Play", onClick --> { _ => game.playCurrentStage() })
 
 def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
   input(cls := List("guess", "guess-box"),
     readOnly := true, value <-- guessSlot.signal.map(_.text)
   )
 
-
 def songListElement(song: Song): HtmlElement =
   li(cls := "song",
     p(song.toString),
     onClick --> { _ =>
       // Pre-guess
-      guessSlotVars(game.currentGuessSlotIndex()).set(GuessSlot(song.toString))
+      guessSlotVars(game.currentStage()).set(GuessSlot(song.toString))
 
       // Guess
       val correct = game.guessSong(song)
       dom.console.log(correct)
-      finishedGame.set(correct || game.currentGuessSlotIndex() == game.maxGuesses)
+      finishedGame.set(correct || game.currentStage() == game.maxGuesses)
 
       // Post-guess
-      if correct then setSnippet(song.startOffset, 500 * 1000)
-      else setSnippet(song.startOffset, song.startOffset + stageSprites(game.currentGuessSlotIndex()))
+      if correct then audioController.setSnippet(0, 500_000) // Play whole song
+      else game.loadStage(song, game.currentStage())
 
-      // playCurrentStage()
+      game.playCurrentStage()
     },
   )
 

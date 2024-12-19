@@ -1,10 +1,11 @@
-import Game.{ Game, Song }
+package Audio
+
 import com.raquo.airstream.core.Transaction
 import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
 import org.scalajs.dom.html
 
-object YoutubeEmbed:
+object YoutubeEmbed extends AudioController:
   private val youtubeVideoSource: Var[String] = Var("VoGilr7ediw")
   private val youtubeStart: Var[Int]          = Var(0)
   private val youtubeEnd: Var[Int]            = Var(1)
@@ -12,8 +13,8 @@ object YoutubeEmbed:
   private def sendPostMessage(iframe: dom.HTMLIFrameElement, command: String): Unit =
     iframe.contentWindow.postMessage(command, "*")
 
-  def component(song: Song, finished: Var[Boolean]): HtmlElement =
-    youtubeVideoSource.set(song.sourcePath)
+  def component(source: String, finished: Var[Boolean]): HtmlElement =
+    youtubeVideoSource.set(source)
 
     iframe(
       idAttr := "ytplayer",
@@ -24,15 +25,21 @@ object YoutubeEmbed:
         },
     )
 
+  def setSong(source: String): Unit = youtubeVideoSource.set(source)
+
   def setSnippet(startMs: Int, endMs: Int) =
     // Transaction?
-    youtubeStart.set(math.ceil(startMs / 1000).toInt)
-    youtubeEnd.set(math.ceil(endMs / 1000).toInt)
+    val startSec = math.ceil(startMs / 1000).toInt
+    val endSec   = math.ceil(endMs / 1000).toInt
 
-  def play() =
+    dom.console.log(s"$startSec - $endSec")
+    youtubeStart.set(startSec)
+    youtubeEnd.set(endSec)
+
+  def play(): Unit =
     val iframe = dom.document.getElementById("ytplayer").asInstanceOf[dom.HTMLIFrameElement]
     sendPostMessage(iframe, """{ "event": "command", "func": "playVideo" }""")
 
-  def pause() =
+  def pause(): Unit =
     val iframe = dom.document.getElementById("ytplayer").asInstanceOf[dom.HTMLIFrameElement]
     sendPostMessage(iframe, """{ "event": "command", "func": "pauseVideo" }""")
