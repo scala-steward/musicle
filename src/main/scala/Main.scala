@@ -1,12 +1,7 @@
 import Game.*
 import Audio.{ AudioController, YoutubeEmbed }
 import com.raquo.laminar.api.L.{ *, given }
-import com.raquo.laminar.tags.CustomHtmlTag
 import org.scalajs.dom
-
-import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
-import scala.compiletime.ops.float
 
 @main def hello(): Unit =
   // Laminar initialization
@@ -109,6 +104,7 @@ def searchField(): HtmlElement =
 
 case class GuessSlot(text: String)
 
+/*
 val progressbar: Var[Float] = Var(0)
 
 def progressBar(): HtmlElement =
@@ -120,3 +116,4 @@ def progressBar(): HtmlElement =
     cls := "progressbar-container",
     div(cls := "progressbar", styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")),
   )
+*/

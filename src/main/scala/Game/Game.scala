@@ -6,7 +6,7 @@ class Game(val actualSong: Song, audioController: AudioController):
   val maxGuesses                  = 5
   private var guesses: List[Song] = List()
 
-  val stageSprites = List(
+  private val stageSprites: List[Int] = List(
     1000,
     2000,
     4000,
