@@ -41,8 +41,21 @@ def gameComponent(): HtmlElement =
       initialSlots.map(li(_))
     ),
     //progressBar(),
+    skipButton(),
     playButton(),
     searchField(),
+  )
+
+def skipButton(): HtmlElement =
+  button(
+    "Skip",
+    cls := "grey-button",
+    onClick --> { _ =>
+      guessSlotVars(game.currentStage()).set(GuessSlot(" - Skipped -"))
+
+      game.skipStage()
+      game.loadStage()
+    },
   )
 
 def playButton(): HtmlElement =
