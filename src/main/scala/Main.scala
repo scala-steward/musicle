@@ -99,17 +99,3 @@ def songListElement(song: Song): HtmlElement =
   li(cls := "song", p(song.toString), onClick --> { _ => guessSong(Some(song)) })
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
-
-/*
-val progressbar: Var[Float] = Var(0)
-
-def progressBar(): HtmlElement =
-  /*js.timers.setInterval(50) {
-    progressbar.set((audio.seek() / audio.duration()).toFloat)
-  }*/
-
-  div(
-    cls := "progressbar-container",
-    div(cls := "progressbar", styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")),
-  )
- */
