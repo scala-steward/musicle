@@ -43,7 +43,7 @@ object SongLibrary:
       Song("Infections Of A Different Kind", 2000, Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "7EmdiaUX-wI"),
 
       // A Different Kind Of Human – Step 2
-      Song("The River", 2000, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "pz5FzFL2L7w"),
+      Song("The River", 2500, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "pz5FzFL2L7w"),
       Song("Animal", 0, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "eMM1FC3Tbe0"),
       Song("Dance On The Moon", 0, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "2GPh59K8_ys"),
       Song("Daydreamer", 0, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "soCJTCElcbk"),
