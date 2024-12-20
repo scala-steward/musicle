@@ -45,16 +45,32 @@ def gameComponent(): HtmlElement =
     SearchFieldControl.component(songLibrary.songs, game.isGuessed, songListElement),
   )
 
+def guessSong(song: Option[Song]): Unit =
+  // Pre-guess
+  val thisStageIndex = game.currentStage()
+
+  // Guess
+  val correct = song match {
+      case Some(s) => game.guessStage(s)
+    case None =>
+      game.skipStage()
+      false
+  }
+
+  // Post-guess
+  finishedGame.set(correct || game.currentStage() == game.maxGuesses)
+  guessSlotVars(thisStageIndex).set(GuessSlot(song, song.isEmpty, correct))
+
+  game.loadStage()
+  if correct then audioController.setSnippet(0, 500_000) // Play whole song
+
+  game.playCurrentStage()
+
 def skipButton(): HtmlElement =
   button(
     "Skip",
     cls := "grey-button",
-    onClick --> { _ =>
-      guessSlotVars(game.currentStage()).set(GuessSlot(None, true, false))
-
-      game.skipStage()
-      game.loadStage()
-    },
+    onClick --> { _ => guessSong(None) },
   )
 
 def playButton(): HtmlElement =
@@ -83,23 +99,7 @@ def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
 def songListElement(song: Song): HtmlElement =
   li(cls := "song",
     p(song.toString),
-    onClick --> { _ =>
-      // Pre-guess
-      val thisStageIndex = game.currentStage()
-
-      // Guess
-      val correct = game.guessStage(song)
-      dom.console.log(correct)
-      finishedGame.set(correct || game.currentStage() == game.maxGuesses)
-
-      // Post-guess
-      guessSlotVars(thisStageIndex).set(GuessSlot(Some(song), false, correct))
-
-      game.loadStage()
-      if correct then audioController.setSnippet(0, 500_000) // Play whole song
-
-      game.playCurrentStage()
-    },
+    onClick --> { _ => guessSong(Some(song)) },
   )
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
