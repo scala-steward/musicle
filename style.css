@@ -248,3 +248,44 @@ ul.guess-container {
     border-radius: 10px 0 0 10px;
     transition: width 0.2s ease-in-out;
 }
+
+/* Style for the guess row container */
+.guess-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;  /* Title + Album */
+  gap: 10px;
+  padding: 10px;
+  background-color: #3a3a5e; /* Dark background */
+  color: white;
+  border: 2px solid #ff6f61;
+  border-radius: 8px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Guess row container with Flexbox centering */
+.guess-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  /* Vertical centering */
+  padding: 10px 15px;
+  background-color: #3a3a5e; /* Dark background */
+  color: white;
+  border: 2px solid #ff6f61; /* Accent border */
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Columns for title and album */
+.guess-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #ffd700; /* Gold for title */
+  text-align: left;
+}
+
+.guess-album {
+  font-size: 0.9rem;
+  color: #d1d1e0; /* Light gray for album */
+  text-align: right;
+}

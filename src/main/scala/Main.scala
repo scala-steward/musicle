@@ -28,7 +28,7 @@ def appElement(): HtmlElement =
 
 def gameComponent(): HtmlElement =
   // Initialize guess slot Vars
-  val slots = (0 until game.maxGuesses).map(_ => Var(GuessSlot(""))).toList
+  val slots = (0 until game.maxGuesses).map(_ => Var(GuessSlot(None, false))).toList
   guessSlotVars = slots // Update the global state (if needed)
 
   val initialSlots = guessSlotVars.map(guessElement)
@@ -50,7 +50,7 @@ def skipButton(): HtmlElement =
     "Skip",
     cls := "grey-button",
     onClick --> { _ =>
-      guessSlotVars(game.currentStage()).set(GuessSlot(" - Skipped -"))
+      guessSlotVars(game.currentStage()).set(GuessSlot(None, true))
 
       game.skipStage()
       game.loadStage()
@@ -61,8 +61,21 @@ def playButton(): HtmlElement =
   button("Play", onClick --> { _ => game.playCurrentStage() })
 
 def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
-  input(cls := List("guess", "guess-box"),
-    readOnly := true, value <-- guessSlot.signal.map(_.text)
+  div(
+    cls := List("guess-row", "guess-box"),
+    children <-- guessSlot.signal.map(slot =>
+      slot.song match {
+        case Some(s) => Seq(
+          span(cls := "guess-title", s.title),
+          span(cls := "guess-album", s.album.toString),
+        )
+        case None =>
+          if slot.skipped then
+            Seq(span(cls := "guess-title", "- Skipped -"))
+          else
+            Seq()
+      }
+    )
   )
 
 def songListElement(song: Song): HtmlElement =
@@ -70,7 +83,7 @@ def songListElement(song: Song): HtmlElement =
     p(song.toString),
     onClick --> { _ =>
       // Pre-guess
-      guessSlotVars(game.currentStage()).set(GuessSlot(song.toString))
+      guessSlotVars(game.currentStage()).set(GuessSlot(Some(song), false))
 
       // Guess
       val correct = game.guessStage(song)
@@ -85,7 +98,7 @@ def songListElement(song: Song): HtmlElement =
     },
   )
 
-case class GuessSlot(text: String)
+case class GuessSlot(song: Option[Song], skipped: Boolean)
 
 /*
 val progressbar: Var[Float] = Var(0)
