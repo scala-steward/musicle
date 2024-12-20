@@ -21,10 +21,9 @@ class Game(val actualSong: Song, audioController: AudioController):
     guesses.contains(guessedSong)
 
   def guessStage(guessedSong: Song): Boolean =
-    if actualSong == guessedSong then true
-    else
-      guesses = guesses :+ Some(guessedSong) // Append guessedSong to guesses immutably
-      false
+    guesses = guesses :+ Some(guessedSong)
+
+    actualSong == guessedSong
 
   def skipStage(): Unit =
     guesses = guesses :+ None
