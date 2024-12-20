@@ -28,7 +28,7 @@ def appElement(): HtmlElement =
 
 def gameComponent(): HtmlElement =
   // Initialize guess slot Vars
-  val slots = (0 until game.maxGuesses).map(_ => Var(GuessSlot(None, false))).toList
+  val slots = (0 until game.maxGuesses).map(_ => Var(GuessSlot(None, false, false))).toList
   guessSlotVars = slots // Update the global state (if needed)
 
   val initialSlots = guessSlotVars.map(guessElement)
@@ -50,7 +50,7 @@ def skipButton(): HtmlElement =
     "Skip",
     cls := "grey-button",
     onClick --> { _ =>
-      guessSlotVars(game.currentStage()).set(GuessSlot(None, true))
+      guessSlotVars(game.currentStage()).set(GuessSlot(None, true, false))
 
       game.skipStage()
       game.loadStage()
@@ -62,7 +62,9 @@ def playButton(): HtmlElement =
 
 def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
   div(
-    cls := List("guess-row", "guess-box"),
+    cls <-- guessSlot.signal.map { slot =>
+      List("guess-row" -> true, "guess-box" -> true, "correct-guess" -> slot.correct)
+    },
     children <-- guessSlot.signal.map(slot =>
       slot.song match {
         case Some(s) => Seq(
@@ -83,7 +85,7 @@ def songListElement(song: Song): HtmlElement =
     p(song.toString),
     onClick --> { _ =>
       // Pre-guess
-      guessSlotVars(game.currentStage()).set(GuessSlot(Some(song), false))
+      val thisStageIndex = game.currentStage()
 
       // Guess
       val correct = game.guessStage(song)
@@ -91,6 +93,8 @@ def songListElement(song: Song): HtmlElement =
       finishedGame.set(correct || game.currentStage() == game.maxGuesses)
 
       // Post-guess
+      guessSlotVars(thisStageIndex).set(GuessSlot(Some(song), false, correct))
+
       game.loadStage()
       if correct then audioController.setSnippet(0, 500_000) // Play whole song
 
@@ -98,7 +102,7 @@ def songListElement(song: Song): HtmlElement =
     },
   )
 
-case class GuessSlot(song: Option[Song], skipped: Boolean)
+case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
 
 /*
 val progressbar: Var[Float] = Var(0)
