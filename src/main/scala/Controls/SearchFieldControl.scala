@@ -1,6 +1,6 @@
 package Controls
 
-import com.raquo.laminar.api.L.{*, given }
+import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
 
 object SearchFieldControl:
@@ -10,8 +10,8 @@ object SearchFieldControl:
     div(
       cls := "container",
       input(
-        cls := List("guess-input", "guess-box"),
-        typ := "text",
+        cls         := List("guess-input", "guess-box"),
+        typ         := "text",
         placeholder := "Runaway...",
         value <-- searchQueryVar.signal,
         inContext { thisNode =>
@@ -20,17 +20,16 @@ object SearchFieldControl:
       ),
       ul(
         cls := "searched-songs",
-        children <-- searchQueryVar.signal.map {
-          query =>
-            query.trim match {
-              case "" => Nil
-              case _ =>
-                database
-                  .filter(result => result.toString.toLowerCase.contains(query.toLowerCase))
-                  .filterNot(filter)
-                  .take(5)
-                  .map(renderListItem)
-            }
-        }
+        children <-- searchQueryVar.signal.map { query =>
+          query.trim match {
+            case "" => Seq.empty
+            case _ =>
+              database
+                .filter(result => result.toString.toLowerCase.contains(query.toLowerCase))
+                .filterNot(filter)
+                .take(5)
+                .map(renderListItem)
+          }
+        },
       ),
     )

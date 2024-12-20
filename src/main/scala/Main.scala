@@ -1,7 +1,7 @@
 import Game.*
-import Audio.{AudioController, YoutubeEmbed}
+import Audio.{ AudioController, YoutubeEmbed }
 import Controls.SearchFieldControl
-import com.raquo.laminar.api.L.{*, given}
+import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
 
 @main def hello(): Unit =
@@ -82,7 +82,7 @@ def songListElement(song: Song): HtmlElement =
       if correct then audioController.setSnippet(0, 500_000) // Play whole song
 
       game.playCurrentStage()
-    }
+    },
   )
 
 case class GuessSlot(text: String)
@@ -99,4 +99,4 @@ def progressBar(): HtmlElement =
     cls := "progressbar-container",
     div(cls := "progressbar", styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")),
   )
-*/
+ */
