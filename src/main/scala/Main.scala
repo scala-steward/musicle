@@ -1,5 +1,6 @@
 import Game.*
 import Audio.{ AudioController, YoutubeEmbed }
+import Controls.SearchFieldControl
 import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
 
@@ -26,8 +27,6 @@ def appElement(): HtmlElement =
   )
 
 def gameComponent(): HtmlElement =
-  // audio.load()
-
   // Initialize guess slot Vars
   val slots = (0 until game.maxGuesses).map(_ => Var(GuessSlot(""))).toList
   guessSlotVars = slots // Update the global state (if needed)
@@ -43,7 +42,7 @@ def gameComponent(): HtmlElement =
     //progressBar(),
     skipButton(),
     playButton(),
-    searchField(),
+    SearchFieldControl.component(songLibrary.songs, game.isGuessed, songListElement),
   )
 
 def skipButton(): HtmlElement =
@@ -86,35 +85,6 @@ def songListElement(song: Song): HtmlElement =
     },
   )
 
-def searchField(): HtmlElement =
-  val searchQueryVar = Var("")
-
-  div(
-    cls := "container",
-    input(
-      cls         := List("guess-input", "guess-box"),
-      typ         := "text",
-      placeholder := "Runaway...",
-      value <-- searchQueryVar.signal,
-      inContext { thisNode =>
-        onInput.mapTo(thisNode.ref.value) --> searchQueryVar
-      },
-    ),
-    ul(
-      cls := "searched-songs",
-      children <-- searchQueryVar.signal.map { query =>
-        query.trim match {
-          case "" => Nil
-          case _ =>
-            songLibrary.songs
-              .filter(song => song.toString.toLowerCase.contains(query.toLowerCase) && !game.isGuessed(song))
-              .take(5)
-              .map(song => songListElement(song))
-        }
-      },
-    ),
-  )
-
 case class GuessSlot(text: String)
 
 /*
@@ -129,4 +99,4 @@ def progressBar(): HtmlElement =
     cls := "progressbar-container",
     div(cls := "progressbar", styleAttr <-- progressbar.signal.map(p => s"width: ${p * 100}%;")),
   )
-*/
+ */

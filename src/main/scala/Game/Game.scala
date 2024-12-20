@@ -6,10 +6,7 @@ class Game(val actualSong: Song, audioController: AudioController):
   val maxGuesses                          = 5
   private var guesses: List[Option[Song]] = List()
   private val stageSprites: List[Int] = List(
-    1000,
-    2000,
-    4000,
-    8000,
+    1000, 2000, 4000, 8000, 16000,
   )
 
   def loadStage(): Unit =
