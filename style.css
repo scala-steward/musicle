@@ -248,3 +248,29 @@ ul.guess-container {
     border-radius: 10px 0 0 10px;
     transition: width 0.2s ease-in-out;
 }
+
+/* Guess-row distinct styling */
+.guess-row {
+  background-color: #2e2e4c; /* Different background from input */
+  color: #ffffff; /* Ensure good contrast */
+  border: 2px solid #ffbd33;  /* Golden border */
+  padding: 10px; /* Add padding for spacing */
+  border-radius: 8px; /* Rounded corners for a card-like feel */
+  display: flex; /* Ensure content inside is properly aligned */
+  align-items: center; /* Center content vertically */
+  justify-content: space-between; /* Add spacing between title and album */
+  gap: 20px; /* Space between child elements */
+  font-size: 1rem; /* Slightly different font size */
+}
+
+/* Styling for the guess title */
+.guess-title {
+  font-weight: bold; /* Make the title stand out */
+  color: #ffd700; /* Use a golden color for emphasis */
+}
+
+/* Styling for the guess album */
+.guess-album {
+  font-style: italic; /* Different font style for album name */
+  color: #d1d1e0; /* Light grey for distinction */
+}
