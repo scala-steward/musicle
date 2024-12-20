@@ -23,12 +23,11 @@ object SearchFieldControl:
         children <-- searchQueryVar.signal.map {
           query =>
             query.trim match {
-              case "" => Seq.empty
+              case "" => Nil
               case _ =>
                 database
-                  // Missing check for already guessed game
                   .filter(result => result.toString.toLowerCase.contains(query.toLowerCase))
-                  .filter(filter)
+                  .filterNot(filter)
                   .take(5)
                   .map(renderListItem)
             }
