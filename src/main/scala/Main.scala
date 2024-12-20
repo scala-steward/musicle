@@ -51,7 +51,7 @@ def guessSong(song: Option[Song]): Unit =
 
   // Guess
   val correct = song match {
-      case Some(s) => game.guessStage(s)
+    case Some(s) => game.guessStage(s)
     case None =>
       game.skipStage()
       false
@@ -83,24 +83,20 @@ def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
     },
     children <-- guessSlot.signal.map(slot =>
       slot.song match {
-        case Some(s) => Seq(
-          span(cls := "guess-title", s.title),
-          span(cls := "guess-album", s.album.toString),
-        )
+        case Some(s) =>
+          Seq(
+            span(cls := "guess-title", s.title),
+            span(cls := "guess-album", s.album.toString),
+          )
         case None =>
-          if slot.skipped then
-            Seq(span(cls := "guess-title", "- Skipped -"))
-          else
-            Seq()
-      }
-    )
+          if slot.skipped then Seq(span(cls := "guess-title", "- Skipped -"))
+          else Seq()
+      },
+    ),
   )
 
 def songListElement(song: Song): HtmlElement =
-  li(cls := "song",
-    p(song.toString),
-    onClick --> { _ => guessSong(Some(song)) },
-  )
+  li(cls := "song", p(song.toString), onClick --> { _ => guessSong(Some(song)) })
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
 
