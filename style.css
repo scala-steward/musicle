@@ -249,43 +249,28 @@ ul.guess-container {
     transition: width 0.2s ease-in-out;
 }
 
-/* Style for the guess row container */
+/* Guess-row distinct styling */
 .guess-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr;  /* Title + Album */
-  gap: 10px;
-  padding: 10px;
-  background-color: #3a3a5e; /* Dark background */
-  color: white;
-  border: 2px solid #ff6f61;
-  border-radius: 8px;
-  align-items: center;
-  box-sizing: border-box;
+  background-color: #2e2e4c; /* Different background from input */
+  color: #ffffff; /* Ensure good contrast */
+  border: 2px solid #ffbd33;  /* Golden border */
+  padding: 10px; /* Add padding for spacing */
+  border-radius: 8px; /* Rounded corners for a card-like feel */
+  display: flex; /* Ensure content inside is properly aligned */
+  align-items: center; /* Center content vertically */
+  justify-content: space-between; /* Add spacing between title and album */
+  gap: 20px; /* Space between child elements */
+  font-size: 1rem; /* Slightly different font size */
 }
 
-/* Guess row container with Flexbox centering */
-.guess-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;  /* Vertical centering */
-  padding: 10px 15px;
-  background-color: #3a3a5e; /* Dark background */
-  color: white;
-  border: 2px solid #ff6f61; /* Accent border */
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-/* Columns for title and album */
+/* Styling for the guess title */
 .guess-title {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #ffd700; /* Gold for title */
-  text-align: left;
+  font-weight: bold; /* Make the title stand out */
+  color: #ffd700; /* Use a golden color for emphasis */
 }
 
+/* Styling for the guess album */
 .guess-album {
-  font-size: 0.9rem;
-  color: #d1d1e0; /* Light gray for album */
-  text-align: right;
+  font-style: italic; /* Different font style for album name */
+  color: #d1d1e0; /* Light grey for distinction */
 }
