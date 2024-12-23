@@ -26,8 +26,9 @@ def appElement(): HtmlElement =
       h1("Musicle"),
     ),
     mainTag(
-      youtubeEmbed.component(),
       gameControl.component(),
+      button("Today", onClick --> { _ => game.set(todayGame); game.now().loadStage() }),
+      button("Yesterday", onClick --> { _ => game.set(yesterdayGame); game.now().loadStage() }),
     ),
     footerTag(
       p("Created with <3 by Kresten"),

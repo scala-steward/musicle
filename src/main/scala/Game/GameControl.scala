@@ -9,6 +9,7 @@ import _root_.Game.GameControl.guessesToGuessSlots
 class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
   def component(): Seq[HtmlElement] =
     Seq(
+      youtubeEmbed.component(),
       h1(text <-- game.signal.map(currentGame => currentGame.title)),
       div(
         child <-- game.signal.map(currentGame =>
