@@ -18,7 +18,7 @@ class GameControl(val game: Var[Game]):
           ul(
             cls := "guess-container",
             children <-- currentGame.guesses.signal.map(guessList =>
-              guessesToGuessSlots(currentGame, guessList).map(guess => li(guessElement(Var(guess)))),
+              guessesToGuessSlots(currentGame, guessList).map(guess => li(guessElement(guess))),
             ),
           ),
         ),
@@ -59,23 +59,19 @@ class GameControl(val game: Var[Game]):
   private def playButton(): HtmlElement =
     button("Play", onClick --> { _ => game.now().playCurrentStage() })
 
-  private def guessElement(guessSlot: Var[GuessSlot]): HtmlElement =
+  private def guessElement(guessSlot: GuessSlot): HtmlElement =
     div(
-      cls <-- guessSlot.signal.map { slot =>
-        List("guess-row" -> true, "guess-box" -> true, "correct-guess" -> slot.correct)
+      cls := s"guess-row guess-box ${if guessSlot.correct then " correct-guess" else ""}",
+      guessSlot.song match {
+        case Some(s) =>
+          Seq(
+            span(cls := "guess-title", s.title),
+            span(cls := "guess-album", s.album.toString),
+          )
+        case None =>
+          if guessSlot.skipped then Seq(span(cls := "guess-title", "- Skipped -"))
+          else Seq(span())
       },
-      children <-- guessSlot.signal.map(slot =>
-        slot.song match {
-          case Some(s) =>
-            Seq(
-              span(cls := "guess-title", s.title),
-              span(cls := "guess-album", s.album.toString),
-            )
-          case None =>
-            if slot.skipped then Seq(span(cls := "guess-title", "- Skipped -"))
-            else Seq()
-        },
-      ),
     )
 
   private def songListElement(song: Song): HtmlElement =
