@@ -2,7 +2,7 @@ package Game
 
 import Audio.YoutubeEmbed
 import Controls.SearchFieldControl
-import com.raquo.laminar.api.L.{*, given}
+import com.raquo.laminar.api.L.{ *, given }
 import Game.*
 import _root_.Game.GameControl.guessesToGuessSlots
 
@@ -10,21 +10,20 @@ class GameControl(val game: Var[Game]):
   val finishedGame: Var[Boolean] = Var(false)
 
   def component(): HtmlElement =
-    // Update guessSlotVars whenever the game changes
     mainTag(
       YoutubeEmbed.component(game.now().actualSong.sourcePath, finishedGame),
       h1("AUROLE: V1.0"),
-      div(child <-- game.signal.map(currentGame =>
-          ul(cls := "guess-container",
-            // game2.guesses.signal.map(guesses => guessesToGuessSlots(game2, guesses))
+      div(
+        child <-- game.signal.map(currentGame =>
+          ul(
+            cls := "guess-container",
             children <-- currentGame.guesses.signal.map(guessList =>
-              guessesToGuessSlots(currentGame, guessList).map(guess => li(guessElement(Var(guess)))
-              )
-            )
-          )
-        )
+              guessesToGuessSlots(currentGame, guessList).map(guess => li(guessElement(Var(guess)))),
+            ),
+          ),
+        ),
       ),
-      //progressBar(),
+      // progressBar(),
       skipButton(),
       playButton(),
       SearchFieldControl.component(game.now().songs, game.now().isGuessed, songListElement),
@@ -84,8 +83,8 @@ class GameControl(val game: Var[Game]):
 
 object GameControl:
   def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =
-    guesses.map(guess =>
-      GuessSlot(guess.song, guess.song.isEmpty, guess.song.getOrElse(false) == game.actualSong)
-    ).padTo(game.maxGuesses, GuessSlot(None, false, false))
+    guesses
+      .map(guess => GuessSlot(guess.song, guess.song.isEmpty, guess.song.getOrElse(false) == game.actualSong))
+      .padTo(game.maxGuesses, GuessSlot(None, false, false))
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
