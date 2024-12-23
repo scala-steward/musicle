@@ -29,7 +29,7 @@ class YoutubeEmbed extends AudioController:
     val startSec = math.ceil(startMs / 1000).toInt
     val endSec   = math.ceil(endMs / 1000).toInt
 
-    dom.console.log(s"$startSec - $endSec")
+    dom.console.log(s"Snippet: $startSec - $endSec")
     youtubeStart.set(startSec)
     youtubeEnd.set(endSec)
 
