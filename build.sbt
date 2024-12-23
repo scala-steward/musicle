@@ -24,7 +24,8 @@ lazy val root = project
      *   (in particular, for the standard library)
      */
     scalaJSLinkerConfig ~= {
-      _.withModuleKind(ModuleKind.CommonJSModule)
+      _.withOptimizer(false)
+        .withModuleKind(ModuleKind.CommonJSModule)
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
     libraryDependencies ++= Seq(
