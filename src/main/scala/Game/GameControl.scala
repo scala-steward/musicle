@@ -1,36 +1,28 @@
 package Game
 
-import Audio.{YoutubeEmbed}
+import Audio.YoutubeEmbed
 import Controls.SearchFieldControl
 import com.raquo.laminar.api.L.{*, given}
 import Game.*
-import _root_.Game.GameControl.guessSlotsFromGame
+import _root_.Game.GameControl.guessesToGuessSlots
 
 class GameControl(val game: Var[Game]):
   val finishedGame: Var[Boolean] = Var(false)
 
-  var guessSlotVars: Var[List[Var[GuessSlot]]] = Var(List.empty)
-  //List.fill(game.now().maxGuesses)(Var(GuessSlot(None, false, false)))
-
   def component(): HtmlElement =
     // Update guessSlotVars whenever the game changes
-    game.signal.map(currentGame =>
-      guessSlotsFromGame(currentGame)
-        .map(slot => Var(slot))
-    ).addObserver(guessSlotVars.writer)
-    /*game.signal.foreach { currentGame =>
-      guessSlotVars.update { _ =>
-        guessSlotsFromGame(currentGame)
-          .map(slot => Var(slot))
-      }
-    }*/
-
     mainTag(
       YoutubeEmbed.component(game.now().actualSong.sourcePath, finishedGame),
       h1("AUROLE: V1.0"),
-      ul(cls := "guess-container",
-        children <-- guessSlotVars.signal.map(
-          slots => slots.map(slot => li(guessElement(slot)))
+      div(cls := "guess-container",
+        child <-- game.signal.map(currentGame =>
+          ul(cls := "guess-container",
+            // game2.guesses.signal.map(guesses => guessesToGuessSlots(game2, guesses))
+            children <-- currentGame.guesses.signal.map(guessList =>
+              guessesToGuessSlots(currentGame, guessList).map(guess => li(guessElement(Var(guess)))
+              )
+            )
+          )
         )
       ),
       //progressBar(),
@@ -53,7 +45,6 @@ class GameControl(val game: Var[Game]):
 
     // Post-guess
     finishedGame.set(correct || game.now().currentStage() == game.now().maxGuesses)
-    guessSlotVars.now()(thisStageIndex).set(GuessSlot(song, song.isEmpty, correct))
 
     game.now().loadStage()
     if correct then game.now().playFullSong()
@@ -93,9 +84,9 @@ class GameControl(val game: Var[Game]):
     li(cls := "song", p(song.toString), onClick --> { _ => guessSong(Some(song)) })
 
 object GameControl:
-  def guessSlotsFromGame(game: Game): List[GuessSlot] =
-    game.guesses
-      .map(song => GuessSlot(song, song.isEmpty, song.getOrElse(false) == game.actualSong))
-      .padTo(game.maxGuesses, GuessSlot(None, false, false))
+  def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =
+    guesses.map(guess =>
+      GuessSlot(guess.song, guess.song.isEmpty, guess.song.getOrElse(false) == game.actualSong)
+    ).padTo(game.maxGuesses, GuessSlot(None, false, false))
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
