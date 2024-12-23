@@ -1,6 +1,6 @@
 package Controls
 
-import com.raquo.laminar.api.L.{*, given}
+import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
 
 object ProgressbarControl:
