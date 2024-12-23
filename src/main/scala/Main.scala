@@ -11,7 +11,7 @@ import Game.*
 val songLibrary: SongLibrary   = SongLibrary(SongLibrary.loadSongs())
 val youtubeEmbed: YoutubeEmbed = YoutubeEmbed()
 val game: Var[Game]            = Var(loadGameByDate("today"))
-val gameControl: GameControl   = GameControl(game)
+val gameControl: GameControl   = GameControl(game, youtubeEmbed)
 
 def loadGameByDate(date: String): Game =
   Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, youtubeEmbed)

@@ -6,9 +6,7 @@ import com.raquo.laminar.api.L.{ *, given }
 import Game.*
 import _root_.Game.GameControl.guessesToGuessSlots
 
-class GameControl(val game: Var[Game]):
-  val finishedGame: Var[Boolean] = Var(false)
-
+class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
   def component(): Seq[HtmlElement] =
     Seq(
       h1("AUROLE: V1.0"),
@@ -40,7 +38,7 @@ class GameControl(val game: Var[Game]):
     }
 
     // Post-guess
-    finishedGame.set(correct || currentGame.currentStage() == currentGame.maxGuesses)
+    youtubeEmbed.videoHidden.set(!(correct || currentGame.currentStage() == currentGame.maxGuesses))
 
     currentGame.loadStage()
     if correct then currentGame.playFullSong()
