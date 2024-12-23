@@ -9,8 +9,8 @@ import _root_.Game.GameControl.guessesToGuessSlots
 class GameControl(val game: Var[Game]):
   val finishedGame: Var[Boolean] = Var(false)
 
-  def component(): HtmlElement =
-    div(
+  def component(): Seq[HtmlElement] =
+    Seq(
       h1("AUROLE: V1.0"),
       div(
         child <-- game.signal.map(currentGame =>
