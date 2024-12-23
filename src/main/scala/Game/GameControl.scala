@@ -14,8 +14,7 @@ class GameControl(val game: Var[Game]):
     mainTag(
       YoutubeEmbed.component(game.now().actualSong.sourcePath, finishedGame),
       h1("AUROLE: V1.0"),
-      div(cls := "guess-container",
-        child <-- game.signal.map(currentGame =>
+      div(child <-- game.signal.map(currentGame =>
           ul(cls := "guess-container",
             // game2.guesses.signal.map(guesses => guessesToGuessSlots(game2, guesses))
             children <-- currentGame.guesses.signal.map(guessList =>
