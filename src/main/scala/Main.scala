@@ -1,7 +1,9 @@
-import Audio.{ AudioController, YoutubeEmbed }
-import com.raquo.laminar.api.L.{ *, given }
+import Audio.{AudioController, YoutubeEmbed}
+import com.raquo.laminar.api.L.{*, given}
 import org.scalajs.dom
 import Game.*
+
+import java.time.*
 
 @main def hello(): Unit =
   // Laminar initialization
@@ -17,13 +19,16 @@ val yesterdayGame: Game = Game(songLibrary.songs(0), songLibrary.songs, "yesterd
 val game: Var[Game]            = Var(todayGame)
 val gameControl: GameControl   = GameControl(game, youtubeEmbed)
 
+val currentDate: Var[LocalDate] = Var(LocalDate.now())
+
 def loadGameByDate(date: String): Game =
   Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, date, youtubeEmbed)
 
 def appElement(): HtmlElement =
   div(
     headerTag(
-      h1("Musicle"),
+      h1("AURORDLE"),
+      h3(text <-- currentDate.signal.map(date => date.toString))
     ),
     mainTag(
       gameControl.component(),
