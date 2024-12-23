@@ -27,8 +27,8 @@ def appElement(): HtmlElement =
     ),
     mainTag(
       gameControl.component(),
-      button("Today", onClick --> { _ => game.set(todayGame); game.now().loadStage() }),
-      button("Yesterday", onClick --> { _ => game.set(yesterdayGame); game.now().loadStage() }),
+      button("Today", onClick --> { _ => game.set(todayGame); gameControl.reload() }),
+      button("Yesterday", onClick --> { _ => game.set(yesterdayGame); gameControl.reload() }),
     ),
     footerTag(
       p("Created with <3 by Kresten"),
