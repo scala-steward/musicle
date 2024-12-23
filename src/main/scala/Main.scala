@@ -8,20 +8,23 @@ import Game.*
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
   game.now().loadStage()
 
-val songLibrary: SongLibrary         = SongLibrary(SongLibrary.loadSongs())
-val game: Var[Game]                  = Var(loadGameByDate("today"))
-val gameControl: GameControl         = GameControl(game)
-val audioController: AudioController = YoutubeEmbed
+val songLibrary: SongLibrary   = SongLibrary(SongLibrary.loadSongs())
+val youtubeEmbed: YoutubeEmbed = YoutubeEmbed()
+val game: Var[Game]            = Var(loadGameByDate("today"))
+val gameControl: GameControl   = GameControl(game)
 
 def loadGameByDate(date: String): Game =
-  Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, audioController)
+  Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, youtubeEmbed)
 
 def appElement(): HtmlElement =
   div(
     headerTag(
       h1("Musicle"),
     ),
-    gameControl.component(),
+    mainTag(
+      youtubeEmbed.component(),
+      gameControl.component(),
+    ),
     footerTag(
       p("Created with <3 by Kresten"),
     ),

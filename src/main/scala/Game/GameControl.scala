@@ -10,8 +10,7 @@ class GameControl(val game: Var[Game]):
   val finishedGame: Var[Boolean] = Var(false)
 
   def component(): HtmlElement =
-    mainTag(
-      YoutubeEmbed.component(game.now().actualSong.sourcePath, finishedGame),
+    div(
       h1("AUROLE: V1.0"),
       div(
         child <-- game.signal.map(currentGame =>
