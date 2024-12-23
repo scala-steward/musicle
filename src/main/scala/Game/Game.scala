@@ -11,6 +11,7 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
   )
 
   def loadStage(): Unit =
+    audioController.setSong(actualSong.sourcePath)
     audioController.setSnippet(actualSong.startOffset, actualSong.startOffset + stageSprites(currentStage()))
 
   def playCurrentStage(): Unit =
