@@ -14,12 +14,16 @@ class GameControl(val game: Var[Game]):
 
   def component(): HtmlElement =
     // Update guessSlotVars whenever the game changes
-    game.signal.foreach { currentGame =>
+    game.signal.map(currentGame =>
+      guessSlotsFromGame(currentGame)
+        .map(slot => Var(slot))
+    ).addObserver(guessSlotVars.writer)
+    /*game.signal.foreach { currentGame =>
       guessSlotVars.update { _ =>
         guessSlotsFromGame(currentGame)
           .map(slot => Var(slot))
       }
-    }
+    }*/
 
     mainTag(
       YoutubeEmbed.component(game.now().actualSong.sourcePath, finishedGame),

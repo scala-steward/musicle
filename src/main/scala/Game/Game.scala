@@ -1,10 +1,11 @@
 package Game
 
 import Audio.AudioController
+import com.raquo.laminar.api.L.Var
 
 class Game(val actualSong: Song, val songs: List[Song], audioController: AudioController):
   val maxGuesses                          = 5
-  var guesses: List[Option[Song]] = List()
+  val guesses: Var[List[Guess]] = Var(List())
   private val stageSprites: List[Int] = List(
     1000, 2000, 4000, 8000, 16000,
   )
@@ -18,15 +19,17 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
   def playFullSong(): Unit =
     audioController.setSnippet(0, 500_000)
 
-  def currentStage(): Int = guesses.length
+  def currentStage(): Int = guesses.now().length
 
   def isGuessed(guessedSong: Song): Boolean =
-    guesses.contains(guessedSong)
+    guesses.now().contains(guessedSong)
 
   def guessStage(guessedSong: Song): Boolean =
-    guesses = guesses :+ Some(guessedSong)
+    guesses.update(lst => lst :+ Guess(Some(guessedSong)))
 
     actualSong == guessedSong
 
   def skipStage(): Unit =
-    guesses = guesses :+ None
+    guesses.update(lst => lst :+ Guess(None))
+
+case class Guess(song: Option[Song])
