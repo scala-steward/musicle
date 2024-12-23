@@ -29,24 +29,23 @@ class GameControl(val game: Var[Game]):
     )
 
   private def guessSong(song: Option[Song]): Unit =
-    // Pre-guess
-    val thisStageIndex = game.now().currentStage()
+    val currentGame = game.now()
 
     // Guess
     val correct = song match {
-      case Some(s) => game.now().guessStage(s)
+      case Some(s) => currentGame.guessStage(s)
       case None =>
-        game.now().skipStage()
+        currentGame.skipStage()
         false
     }
 
     // Post-guess
-    finishedGame.set(correct || game.now().currentStage() == game.now().maxGuesses)
+    finishedGame.set(correct || currentGame.currentStage() == currentGame.maxGuesses)
 
-    game.now().loadStage()
-    if correct then game.now().playFullSong()
+    currentGame.loadStage()
+    if correct then currentGame.playFullSong()
 
-    game.now().playCurrentStage()
+    currentGame.playCurrentStage()
 
   private def skipButton(): HtmlElement =
     button(
