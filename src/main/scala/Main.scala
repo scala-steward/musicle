@@ -11,13 +11,16 @@ import scala.collection.mutable
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
   setGameDate(LocalDate.now())
 
+// Game-dependencies
 val gameByDate: mutable.Map[LocalDate, Game] = scala.collection.mutable.Map()
 val youtubeEmbed: YoutubeEmbed               = YoutubeEmbed()
 val songLibrary: SongLibrary                 = SongLibrary(SongLibrary.loadSongs())
 
+// Game
 val game: Var[Game]          = Var(loadGameByDate(LocalDate.now()))
 val gameControl: GameControl = GameControl(game, youtubeEmbed)
 
+// Other
 val currentDate: Var[LocalDate] = Var(LocalDate.now())
 
 def loadGameByDate(date: LocalDate): Game =
