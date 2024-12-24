@@ -31,6 +31,12 @@ def loadGameByDate(date: LocalDate): Game =
     gameByDate.update(date, newGame)
     newGame
 
+def setGameDate(date: LocalDate): Unit =
+  currentDate.set(date)
+  game.set(loadGameByDate(date))
+  gameControl.reload()
+  dom.console.log(gameByDate)
+
 def appElement(): HtmlElement =
   div(
     headerTag(
@@ -39,8 +45,8 @@ def appElement(): HtmlElement =
     ),
     mainTag(
       gameControl.component(),
-      button("Today", onClick --> { _ => game.set(todayGame); gameControl.reload() }),
-      button("Yesterday", onClick --> { _ => game.set(yesterdayGame); gameControl.reload() }),
+      button("<-", onClick --> { _ => setGameDate(currentDate.now().minusDays(1)) }),
+      button("->", onClick --> { _ => setGameDate(currentDate.now().plusDays(1)) }),
     ),
     footerTag(
       p("Created with <3 by Kresten"),
