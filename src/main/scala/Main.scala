@@ -40,7 +40,13 @@ def appElement(): HtmlElement =
   div(
     headerTag(
       h1("AURORDLE"),
-      h3(text <-- currentDate.signal.map(date => date.toString)),
+      h3(text <-- currentDate.signal.map(date =>
+        if date == LocalDate.now() then "Today"
+        else if date == LocalDate.now().minusDays(1) then "Yesterday"
+        else if date == LocalDate.now().plusDays(1) then "Tomorrow"
+        else date.toString
+      )
+      ),
     ),
     mainTag(
       gameControl.component(),
