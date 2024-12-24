@@ -13,7 +13,7 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
   def finished(): Boolean =
     guesses.now().lastOption match {
       case Some(lst) => lst.song.getOrElse(false) == actualSong
-      case None => false
+      case None      => false
     }
 
   def loadStage(): Unit =
