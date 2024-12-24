@@ -10,19 +10,26 @@ import java.time.*
   renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
   game.now().loadStage()
 
+val gameByDate: scala.collection.mutable.Map[LocalDate, Game] = scala.collection.mutable.Map()
+
 val songLibrary: SongLibrary   = SongLibrary(SongLibrary.loadSongs())
 val youtubeEmbed: YoutubeEmbed = YoutubeEmbed()
 
-val todayGame: Game = loadGameByDate("today")
-val yesterdayGame: Game = Game(songLibrary.songs(0), songLibrary.songs, "yesterday", youtubeEmbed)
+val todayGame: Game = loadGameByDate(LocalDate.now())
+val yesterdayGame: Game = Game(songLibrary.songs(0), songLibrary.songs, youtubeEmbed)
 
 val game: Var[Game]            = Var(todayGame)
 val gameControl: GameControl   = GameControl(game, youtubeEmbed)
 
 val currentDate: Var[LocalDate] = Var(LocalDate.now())
 
-def loadGameByDate(date: String): Game =
-  Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, date, youtubeEmbed)
+def loadGameByDate(date: LocalDate): Game =
+  if gameByDate.contains(date) then
+    gameByDate(date)
+  else
+    val newGame = Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, youtubeEmbed)
+    gameByDate.update(date, newGame)
+    newGame
 
 def appElement(): HtmlElement =
   div(

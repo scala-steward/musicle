@@ -10,7 +10,7 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
   def component(): Seq[HtmlElement] =
     Seq(
       youtubeEmbed.component(),
-      h1(text <-- game.signal.map(currentGame => currentGame.title)),
+      //h1(text <-- game.signal.map(currentGame => currentGame.date)),
       div(
         child <-- game.signal.map(currentGame =>
           ul(

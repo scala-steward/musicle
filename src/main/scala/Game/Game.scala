@@ -3,7 +3,7 @@ package Game
 import Audio.AudioController
 import com.raquo.laminar.api.L.Var
 
-class Game(val actualSong: Song, val songs: List[Song], val title: String, audioController: AudioController):
+class Game(val actualSong: Song, val songs: List[Song], audioController: AudioController):
   val maxGuesses                = 5
   val guesses: Var[List[Guess]] = Var(List())
   private val stageSprites: List[Int] = List(
