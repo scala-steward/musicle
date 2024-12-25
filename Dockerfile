@@ -1,6 +1,4 @@
 # Dockerfile for Scala.js + Vite project
-# Use a multi-stage build
-
 # Stage 1: Download Node modules
 FROM node:20 AS npm-install
 LABEL authors="kress"
@@ -12,9 +10,6 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # Stage 2: Build Scala.js project
-#FROM hseeberger/scala-sbt:17.0.2_1.6.2_3.1.1 AS scalajs-build
-#FROM openjdk:11-jre-slim AS scalajs-build
-#FROM openjdk:23-jdk AS scalajs-build
 FROM sbtscala/scala-sbt:graalvm-community-22.0.1_1.10.6_3.5.2 AS scalajs-build
 
 WORKDIR /app
@@ -25,7 +20,7 @@ COPY . .
 # Install Scala.js depdencies
 RUN sbt update
 
-# -- Setup NPM and Node --
+# Install NPM and Node
 RUN microdnf install nodejs -y
 
 # Build with vite
