@@ -28,6 +28,8 @@ RUN sbt update
 # Build Scala.js project
 RUN sbt fastOptJS
 
+# -- Setup NPM and Node --
+
 # Build with vite
 RUN npm run build
 
@@ -36,7 +38,7 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # Copy build output to nginx
-COPY --from=vite-build /app/dist /usr/share/nginx/html
+COPY --from=scalajs-build /app/dist /usr/share/nginx/html
 
 # Copy custom nginx config if needed (uncomment and adjust path)
 # COPY nginx.conf /etc/nginx/nginx.conf
