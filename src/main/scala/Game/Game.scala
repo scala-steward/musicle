@@ -10,11 +10,7 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
     1000, 2000, 4000, 8000, 16000,
   )
 
-  def finished(): Boolean =
-    guesses.now().lastOption match {
-      case Some(lst) => lst.song.getOrElse(false) == actualSong
-      case None      => false
-    }
+  def finished: Boolean = isGuessed(actualSong)
 
   def loadStage(): Unit =
     audioController.setSong(actualSong.sourcePath)
