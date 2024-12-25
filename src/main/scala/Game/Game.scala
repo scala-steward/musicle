@@ -27,11 +27,9 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
   def isGuessed(guessedSong: Song): Boolean = guesses.now().contains(guessedSong)
 
   def guessStage(guessedSong: Song): Boolean =
-    guesses.update(lst => lst :+ Guess(Some(guessedSong)))
-
+    guesses.update(_ :+ Guess(Some(guessedSong)))
     actualSong == guessedSong
 
-  def skipStage(): Unit =
-    guesses.update(lst => lst :+ Guess(None))
+  def skipStage(): Unit = guesses.update(_ :+ Guess(None))
 
 case class Guess(song: Option[Song])
