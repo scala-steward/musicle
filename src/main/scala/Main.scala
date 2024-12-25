@@ -54,7 +54,11 @@ def appElement(): HtmlElement =
     mainTag(
       gameControl.component(),
       button("<-", onClick --> { _ => navigateGameDate(-1) }),
-      button("->", onClick --> { _ => navigateGameDate(1) }),
+      button(
+        "->",
+        hidden <-- currentDate.signal.map(_ == LocalDate.now().plusDays(1)),
+        onClick --> { _ => navigateGameDate(1) },
+      ),
     ),
     footerTag(
       p("Created with <3 by Kresten"),
