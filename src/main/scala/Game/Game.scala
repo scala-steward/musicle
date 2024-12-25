@@ -24,8 +24,7 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
 
   def currentStage: Int = guesses.now().length
 
-  def isGuessed(guessedSong: Song): Boolean =
-    guesses.now().contains(guessedSong)
+  def isGuessed(guessedSong: Song): Boolean = guesses.now().contains(guessedSong)
 
   def guessStage(guessedSong: Song): Boolean =
     guesses.update(lst => lst :+ Guess(Some(guessedSong)))
