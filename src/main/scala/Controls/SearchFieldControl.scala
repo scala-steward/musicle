@@ -32,7 +32,7 @@ object SearchFieldControl:
               database
                 .filter(result => result.toString.toLowerCase.contains(query.toLowerCase))
                 .filterNot(exclusionFilter)
-                .take(5)
+                .take(7)
                 .map(item => li(cls := "song", renderListItem(item), onClick --> { _ =>
                   handleListItemClick(item)
                   searchQueryVar.set("")
