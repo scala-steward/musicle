@@ -84,7 +84,7 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
 object GameControl:
   def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =
     guesses
-      .map(guess => GuessSlot(guess.song, guess.song.isEmpty, guess.song.getOrElse(false) == game.actualSong))
+      .map(guess => GuessSlot(guess.song, guess.song.isEmpty, guess.song.contains(game.actualSong)))
       .padTo(game.maxGuesses, GuessSlot(None, false, false))
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
