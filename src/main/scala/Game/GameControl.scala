@@ -21,7 +21,12 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
           ),
         ),
       ),
-      SearchFieldControl.component(game.now().songs, game.now().isGuessed, songListElement),
+      SearchFieldControl.component(
+        game.now().songs,
+        game.now().isGuessed,
+        songListElement,
+        songListElementClickHandler,
+      ),
       // progressBar(),
       skipButton(),
       playButton(),
@@ -33,6 +38,10 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
     // Always hide embed, otherwise it will flash the answer.
     youtubeEmbed.videoHidden.set(true)
     currentGame.loadStage()
+
+  private def songListElement(song: Song): HtmlElement = p(song.toString)
+
+  private def songListElementClickHandler(song: Song): Unit = guessSong(Some(song))
 
   private def guessSong(song: Option[Song]): Unit =
     val currentGame = game.now()
@@ -77,9 +86,6 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
           else Seq(span())
       },
     )
-
-  private def songListElement(song: Song): HtmlElement =
-    li(cls := "song", p(song.toString), onClick --> { _ => guessSong(Some(song)) })
 
 object GameControl:
   def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =

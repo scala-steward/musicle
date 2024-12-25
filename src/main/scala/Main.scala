@@ -60,7 +60,7 @@ def appElement(): HtmlElement =
           hidden <-- currentDate.signal.map(_ == LocalDate.now().plusDays(1)),
           onClick --> { _ => navigateGameDate(1) },
         ),
-      )
+      ),
     ),
     footerTag(
       p("Created with <3 by Kresten"),
