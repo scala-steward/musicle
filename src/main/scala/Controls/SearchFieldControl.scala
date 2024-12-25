@@ -33,7 +33,10 @@ object SearchFieldControl:
                 .filter(result => result.toString.toLowerCase.contains(query.toLowerCase))
                 .filterNot(exclusionFilter)
                 .take(5)
-                .map(item => li(cls := "song", renderListItem(item), onClick --> { _ => handleListItemClick(item) }))
+                .map(item => li(cls := "song", renderListItem(item), onClick --> { _ =>
+                  handleListItemClick(item)
+                  searchQueryVar.set("")
+                }))
           }
         },
       ),
