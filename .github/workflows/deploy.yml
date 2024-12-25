@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - feat/cd-website
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build frontend using Docker
+        run: |
+          docker build -t scalajs-vite-frontend .
+          container_id=$(docker create scalajs-vite-frontend)
+          docker cp $container_id:/usr/share/nginx/html ./dist
+          docker rm $container_id
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
