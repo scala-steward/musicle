@@ -9,10 +9,10 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends \
-    open-ssl \
-    curl \ 
+    openssl \
+    curl \
     wget \
-    gnupg \
+    gnupg
 
 RUN apt-get update && \
     apt-get install -y scala
