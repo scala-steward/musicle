@@ -1,3 +1,7 @@
+body {
+  background-color: #1e1e2f; /* Dark modern background */
+}
+
 /* General styles for the app */
 #app {
   font-family: 'Inter', Avenir, Helvetica, Arial, sans-serif;
@@ -6,7 +10,6 @@
   text-align: center;
   width: 100%;
   height: 100%;
-  background-color: #1e1e2f; /* Dark modern background */
   color: #ffffff; /* Text color */
   position: absolute;
   top: 0;
@@ -78,14 +81,14 @@ ul {
 ul.searched-songs {
   background-color: #000; /* Black background for the dropdown */
   position: absolute;
-  top: 100%;
+  bottom: 100%; /* Position above the input field */
   left: 0;
   width: 100%;
   z-index: 10;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   border: 3px solid black;
   box-sizing: border-box; /* Ensure padding doesn't affect layout */
 }
@@ -176,6 +179,10 @@ button:active {
   background-color: #e94336; /* Even darker shade */
 }
 
+button.grey-button {
+  background-color: #1e1e2f;
+}
+
 /* Audio embed styling */
 audio {
   margin-top: 20px;
@@ -243,4 +250,41 @@ ul.guess-container {
     background: linear-gradient(to right, #ff5733, #ffbd33);
     border-radius: 10px 0 0 10px;
     transition: width 0.2s ease-in-out;
+}
+
+/* Guess-row distinct styling */
+.guess-row {
+  background-color: #2e2e4c; /* Different background from input */
+  color: #ffffff; /* Ensure good contrast */
+  border: 2px solid #ffbd33;  /* Golden border */
+  padding: 10px; /* Add padding for spacing */
+  border-radius: 8px; /* Rounded corners for a card-like feel */
+  display: flex; /* Ensure content inside is properly aligned */
+  align-items: center; /* Center content vertically */
+  justify-content: space-between; /* Add spacing between title and album */
+  gap: 20px; /* Space between child elements */
+  font-size: 1rem; /* Slightly different font size */
+}
+
+/* Styling for the guess title */
+.guess-title {
+  font-weight: bold; /* Make the title stand out */
+  color: #ffd700; /* Use a golden color for emphasis */
+}
+
+/* Styling for the guess album */
+.guess-album {
+  font-style: italic; /* Different font style for album name */
+  color: #d1d1e0; /* Light grey for distinction */
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700; }
+  100% { text-shadow: 0 0 20px #ff5733, 0 0 30px #ff5733; }
+}
+
+.correct-guess {
+  animation: glow 1s ease-in-out infinite alternate;
+  color: #ffd700;
+  font-size: 1.2em;
 }
