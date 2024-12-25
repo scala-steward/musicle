@@ -25,10 +25,8 @@ COPY . .
 # Install Scala.js depdencies
 RUN sbt update
 
-# Build Scala.js project
-RUN sbt fastOptJS
-
 # -- Setup NPM and Node --
+RUN microdnf install nodejs -y
 
 # Build with vite
 RUN npm run build
