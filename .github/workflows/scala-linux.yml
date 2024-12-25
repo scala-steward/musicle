@@ -28,7 +28,7 @@ jobs:
     - name: Install npm dependencies
       run: npm install
 
-    - name: Setup Scala (sbt)
+    - name: Setup Scala (sbt) (based on Adoptium)
       uses: olafurpg/setup-scala@v10
 
     - name: Build Scala.js project
