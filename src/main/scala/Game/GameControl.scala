@@ -46,7 +46,7 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
     }
 
     // Post-guess
-    youtubeEmbed.videoHidden.set(!(correct || currentGame.currentStage() == currentGame.maxGuesses))
+    youtubeEmbed.videoHidden.set(!(correct || currentGame.currentStage == currentGame.maxGuesses))
 
     currentGame.loadStage()
     if correct then currentGame.playFullSong()

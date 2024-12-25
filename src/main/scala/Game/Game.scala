@@ -14,7 +14,7 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
 
   def loadStage(): Unit =
     audioController.setSong(actualSong.sourcePath)
-    audioController.setSnippet(actualSong.startOffset, actualSong.startOffset + stageSprites(currentStage()))
+    audioController.setSnippet(actualSong.startOffset, actualSong.startOffset + stageSprites(currentStage))
 
   def playCurrentStage(): Unit =
     audioController.play()
@@ -22,7 +22,7 @@ class Game(val actualSong: Song, val songs: List[Song], audioController: AudioCo
   def playFullSong(): Unit =
     audioController.setSnippet(0, 500_000)
 
-  def currentStage(): Int = guesses.now().length
+  def currentStage: Int = guesses.now().length
 
   def isGuessed(guessedSong: Song): Boolean =
     guesses.now().contains(guessedSong)
