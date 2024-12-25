@@ -24,11 +24,10 @@ val gameControl: GameControl = GameControl(game, youtubeEmbed)
 val currentDate: Var[LocalDate] = Var(LocalDate.now())
 
 def loadGameByDate(date: LocalDate): Game =
-  if gameByDate.contains(date) then gameByDate(date)
-  else
-    val newGame = Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, youtubeEmbed)
-    gameByDate.update(date, newGame)
-    newGame
+  gameByDate.getOrElseUpdate(
+    date,
+    Game(SongPicker.TodaySong(songLibrary), songLibrary.songs, youtubeEmbed),
+  )
 
 def setGameDate(date: LocalDate): Unit =
   currentDate.set(date)
@@ -36,22 +35,26 @@ def setGameDate(date: LocalDate): Unit =
   gameControl.reload()
   dom.console.log(gameByDate)
 
+def navigateGameDate(daysOffset: Int): Unit =
+  setGameDate(currentDate.now().plusDays(daysOffset))
+
 def appElement(): HtmlElement =
   div(
     headerTag(
       h1("AURORDLE"),
-      h3(text <-- currentDate.signal.map(date =>
-        if date == LocalDate.now() then "Today"
-        else if date == LocalDate.now().minusDays(1) then "Yesterday"
-        else if date == LocalDate.now().plusDays(1) then "Tomorrow"
-        else date.toString
-      )
+      h3(
+        text <-- currentDate.signal.map(date =>
+          if date == LocalDate.now() then "Today"
+          else if date == LocalDate.now().minusDays(1) then "Yesterday"
+          else if date == LocalDate.now().plusDays(1) then "Tomorrow"
+          else date.toString,
+        ),
       ),
     ),
     mainTag(
       gameControl.component(),
-      button("<-", onClick --> { _ => setGameDate(currentDate.now().minusDays(1)) }),
-      button("->", onClick --> { _ => setGameDate(currentDate.now().plusDays(1)) }),
+      button("<-", onClick --> { _ => navigateGameDate(-1) }),
+      button("->", onClick --> { _ => navigateGameDate(1) }),
     ),
     footerTag(
       p("Created with <3 by Kresten"),
