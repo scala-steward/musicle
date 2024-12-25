@@ -21,10 +21,10 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
           ),
         ),
       ),
+      SearchFieldControl.component(game.now().songs, game.now().isGuessed, songListElement),
       // progressBar(),
       skipButton(),
       playButton(),
-      SearchFieldControl.component(game.now().songs, game.now().isGuessed, songListElement),
     )
 
   def reload(): Unit =
