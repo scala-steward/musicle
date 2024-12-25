@@ -4,7 +4,12 @@ import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
 
 object SearchFieldControl:
-  def component[A](database: Seq[A], exclusionFilter: A => Boolean, renderListItem: A => HtmlElement, handleListItemClick: A => Unit): HtmlElement =
+  def component[A](
+      database: Seq[A],
+      exclusionFilter: A => Boolean,
+      renderListItem: A => HtmlElement,
+      handleListItemClick: A => Unit,
+  ): HtmlElement =
     val searchQueryVar = Var("")
 
     div(

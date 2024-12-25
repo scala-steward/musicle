@@ -21,7 +21,12 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
           ),
         ),
       ),
-      SearchFieldControl.component(game.now().songs, game.now().isGuessed, songListElement, songListElementClickHandler),
+      SearchFieldControl.component(
+        game.now().songs,
+        game.now().isGuessed,
+        songListElement,
+        songListElementClickHandler,
+      ),
       // progressBar(),
       skipButton(),
       playButton(),
