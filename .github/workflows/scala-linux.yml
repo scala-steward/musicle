@@ -1,0 +1,39 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Scala CI (Linux)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+
+    - name: Install npm dependencies
+      run: npm install
+
+    - name: Setup Scala (sbt) (based on Adoptium)
+      uses: olafurpg/setup-scala@v10
+
+    - name: Build Scala.js project
+      run: sbt fastOptJS   # Use `fullOptJS` for production build
+
+    # Disabled until tests are added
+    #- name: Run tests
+    #  run: sbt test
