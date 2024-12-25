@@ -11,7 +11,6 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
-
 # Stage 2: Build Scala.js project
 #FROM hseeberger/scala-sbt:17.0.2_1.6.2_3.1.1 AS scalajs-build
 #FROM openjdk:11-jre-slim AS scalajs-build
@@ -20,10 +19,8 @@ FROM sbtscala/scala-sbt:graalvm-community-22.0.1_1.10.6_3.5.2 AS scalajs-build
 
 WORKDIR /app
 
+COPY --from=npm-install /app/node_modules /app/node_modules
 COPY . .
-
-# Check version
-RUN sbt --version & scala -version
 
 # Install Scala.js depdencies
 RUN sbt update
@@ -31,19 +28,11 @@ RUN sbt update
 # Build Scala.js project
 RUN sbt fastOptJS
 
-# Stage 3: Build with Vite
-FROM node:20 AS vite-build
-
-WORKDIR /app
-
-# Copy the Scala.js output from the previous stage
-COPY --from=scalajs-build /app/target/scala-3.5.2/app-opt.js /app/dist/
-
 # Build with vite
 RUN npm run build
 
 
-# Stage 4: Serve built frontend
+# Stage 3: Serve built frontend
 FROM nginx:stable-alpine
 
 # Copy build output to nginx
