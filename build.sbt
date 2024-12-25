@@ -24,11 +24,14 @@ lazy val root = project
      *   (in particular, for the standard library)
      */
     scalaJSLinkerConfig ~= {
-      _.withModuleKind(ModuleKind.CommonJSModule)
+      _.withOptimizer(false)
+        .withModuleKind(ModuleKind.CommonJSModule)
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
     libraryDependencies ++= Seq(
-      "com.raquo" %%% "laminar" % "17.0.0",
+      "com.raquo"         %%% "laminar"              % "17.0.0",
+      "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
+      "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0",
     ),
 
     // Tell ScalablyTyped that we manage `npm install` ourselves
