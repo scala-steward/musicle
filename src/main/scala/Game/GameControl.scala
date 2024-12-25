@@ -34,6 +34,10 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
     youtubeEmbed.videoHidden.set(true)
     currentGame.loadStage()
 
+  private def songListElement(song: Song): HtmlElement = p(song.toString)
+
+  private def songListElementClickHandler(song: Song): Unit = guessSong(Some(song))
+
   private def guessSong(song: Option[Song]): Unit =
     val currentGame = game.now()
 
@@ -77,10 +81,6 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
           else Seq(span())
       },
     )
-
-  private def songListElement(song: Song): HtmlElement = p(song.toString)
-
-  private def songListElementClickHandler(song: Song): Unit = guessSong(Some(song))
 
 object GameControl:
   def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =
