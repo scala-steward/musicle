@@ -26,7 +26,7 @@ val currentDate: Var[LocalDate] = Var(LocalDate.now())
 def loadGameByDate(date: LocalDate): Game =
   gameByDate.getOrElseUpdate(
     date,
-    Game(SongPicker.DateSong(date, songLibrary), GameType.StandardGame, youtubeEmbed),
+    Game(SongPicker.DateSong(date, songLibrary), GameType.StandardGame, List()),
   )
 
 def setGameDate(date: LocalDate): Unit =
