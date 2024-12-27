@@ -1,7 +1,5 @@
 package Game
 
-import Game.Song
-
 case class SongLibrary(songs: List[Song])
 
 object SongLibrary:
