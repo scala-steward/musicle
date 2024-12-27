@@ -32,6 +32,9 @@ lazy val root = project
       "com.raquo"         %%% "laminar"              % "17.0.0",
       "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
       "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0",
+      // JSON codec
+      "io.bullet" %%% "borer-core"       % "1.15.0",
+      "io.bullet" %%% "borer-derivation" % "1.15.0",
     ),
 
     // Tell ScalablyTyped that we manage `npm install` ourselves
