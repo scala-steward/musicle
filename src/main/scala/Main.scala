@@ -29,7 +29,12 @@ def loadGameByDate(date: LocalDate): Game =
     Game(SongPicker.DateSong(date, songLibrary), GameType.StandardGame, List()),
   )
 
+def saveGameByDate(date: LocalDate): Unit =
+  gameByDate.update(date, game.now())
+
 def setGameDate(date: LocalDate): Unit =
+  saveGameByDate(currentDate.now())
+
   currentDate.set(date)
   game.set(loadGameByDate(date))
   gameControl.reload()
