@@ -22,7 +22,7 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
         ),
       ),
       SearchFieldControl.component(
-        game.now().songs,
+        game.now().gameType.songs,
         game.now().isGuessed,
         songListElement,
         songListElementClickHandler,
@@ -55,7 +55,7 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
     }
 
     // Post-guess
-    youtubeEmbed.videoHidden.set(!(correct || currentGame.currentStage == currentGame.maxGuesses))
+    youtubeEmbed.videoHidden.set(!(correct || currentGame.currentStage == currentGame.gameType.maxGuesses))
 
     currentGame.loadStage()
     if correct then currentGame.playFullSong()
@@ -91,6 +91,6 @@ object GameControl:
   def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =
     guesses
       .map(guess => GuessSlot(guess.song, guess.song.isEmpty, guess.song.contains(game.actualSong)))
-      .padTo(game.maxGuesses, GuessSlot(None, false, false))
+      .padTo(game.gameType.maxGuesses, GuessSlot(None, false, false))
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
