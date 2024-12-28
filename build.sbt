@@ -29,7 +29,7 @@ lazy val root = project
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
     libraryDependencies ++= Seq(
-      "com.raquo"         %%% "laminar"              % "17.0.0",
+      "com.raquo"         %%% "laminar"              % "17.2.0",
       "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
       "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.5.0",
       // JSON codec
