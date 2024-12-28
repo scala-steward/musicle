@@ -43,7 +43,7 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
     // Guess
     song match {
       case Some(s) => game.update(_.guessStage(s))
-      case None => game.update(_.skipStage())
+      case None    => game.update(_.skipStage())
     }
 
     // Post-guess
