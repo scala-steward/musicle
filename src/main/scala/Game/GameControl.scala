@@ -12,17 +12,15 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
       youtubeEmbed.component(),
       // h1(text <-- game.signal.map(currentGame => currentGame.date)),
       div(
-        child <-- game.signal.map(currentGame =>
-          ul(
-            cls := "guess-container",
-            children <-- currentGame.guesses.signal.map(guessList =>
-              guessesToGuessSlots(currentGame, guessList).map(guess => li(guessElement(guess))),
-            ),
+        ul(
+          cls := "guess-container",
+          children <-- game.signal.map(currentGame =>
+            guessesToGuessSlots(currentGame, currentGame.guesses).map(guess => li(guessElement(guess))),
           ),
         ),
       ),
       SearchFieldControl.component(
-        game.now().songs,
+        game.now().gameType.songs,
         game.now().isGuessed,
         songListElement,
         songListElementClickHandler,
@@ -33,34 +31,28 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
     )
 
   def reload(): Unit =
-    val currentGame: Game = game.now()
-
     // Always hide embed, otherwise it will flash the answer.
     youtubeEmbed.videoHidden.set(true)
-    currentGame.loadStage()
+    youtubeEmbed.loadCurrentStage(game.now())
 
   private def songListElement(song: Song): HtmlElement = p(song.toString)
 
   private def songListElementClickHandler(song: Song): Unit = guessSong(Some(song))
 
   private def guessSong(song: Option[Song]): Unit =
-    val currentGame = game.now()
-
     // Guess
-    val correct = song match {
-      case Some(s) => currentGame.guessStage(s)
-      case None =>
-        currentGame.skipStage()
-        false
+    song match {
+      case Some(s) => game.update(_.guessStage(s))
+      case None    => game.update(_.skipStage())
     }
 
     // Post-guess
-    youtubeEmbed.videoHidden.set(!(correct || currentGame.currentStage == currentGame.maxGuesses))
+    youtubeEmbed.videoHidden.set(!(game.now().finished))
 
-    currentGame.loadStage()
-    if correct then currentGame.playFullSong()
+    youtubeEmbed.loadCurrentStage(game.now())
+    if game.now().finished then youtubeEmbed.loadFullSong(game.now())
 
-    currentGame.playCurrentStage()
+    youtubeEmbed.play()
 
   private def skipButton(): HtmlElement =
     button(
@@ -70,7 +62,7 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
     )
 
   private def playButton(): HtmlElement =
-    button("Play", onClick --> { _ => game.now().playCurrentStage() })
+    button("Play", onClick --> { _ => youtubeEmbed.play() })
 
   private def guessElement(guessSlot: GuessSlot): HtmlElement =
     div(
@@ -91,6 +83,6 @@ object GameControl:
   def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =
     guesses
       .map(guess => GuessSlot(guess.song, guess.song.isEmpty, guess.song.contains(game.actualSong)))
-      .padTo(game.maxGuesses, GuessSlot(None, false, false))
+      .padTo(game.gameType.maxGuesses, GuessSlot(None, false, false))
 
 case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
