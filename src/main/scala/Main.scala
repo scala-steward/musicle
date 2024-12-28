@@ -12,9 +12,9 @@ import scala.collection.mutable
   setGameDate(LocalDate.now())
 
 // Game-dependencies
-val gameByDate: mutable.Map[LocalDate, Game] = scala.collection.mutable.Map()
-val youtubeEmbed: YoutubeEmbed               = YoutubeEmbed()
-val songLibrary: SongLibrary                 = SongLibrary(SongLibrary.loadSongs())
+val websiteState: Var[WebsiteState] = Persistence.getWebsiteState
+val youtubeEmbed: YoutubeEmbed      = YoutubeEmbed()
+val songLibrary: SongLibrary        = SongLibrary(SongLibrary.loadSongs())
 
 // Game
 val game: Var[Game]          = Var(loadGameByDate(LocalDate.now()))
@@ -23,17 +23,28 @@ val gameControl: GameControl = GameControl(game, youtubeEmbed)
 // Other
 val currentDate: Var[LocalDate] = Var(LocalDate.now())
 
+def newGameByDate(date: LocalDate): Game =
+  Game(SongPicker.DateSong(date, songLibrary), GameType.StandardGame, List())
+
+def getOrInitializeGameByDate(date: LocalDate): Game =
+  if websiteState.now().gameData.contains(date) then websiteState.now().gameData(date)
+  else
+    val newGame = newGameByDate(date)
+    websiteState.update(_.updateGame(date, newGame))
+    newGame
+
 def loadGameByDate(date: LocalDate): Game =
-  gameByDate.getOrElseUpdate(
-    date,
-    Game(SongPicker.DateSong(date, songLibrary), songLibrary.songs, youtubeEmbed),
-  )
+  getOrInitializeGameByDate(date)
+
+def saveCurrentGame(): Unit =
+  websiteState.update(_.updateGame(currentDate.now(), game.now()))
 
 def setGameDate(date: LocalDate): Unit =
+  saveCurrentGame()
+
   currentDate.set(date)
   game.set(loadGameByDate(date))
   gameControl.reload()
-  dom.console.log(gameByDate)
 
 def navigateGameDate(daysOffset: Int): Unit =
   setGameDate(currentDate.now().plusDays(daysOffset))
