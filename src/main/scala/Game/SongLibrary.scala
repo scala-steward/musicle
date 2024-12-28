@@ -7,13 +7,39 @@ case class SongLibrary(songs: List[Song])
 object SongLibrary:
   def loadSongs(): List[Song] =
     List(
-      // Singles
+      // Singles in other's albums
       Song("Thank U", 0, Album("Goodnight Songs For Rebel Girls"), Author("AURORA"), "E39j5Mg7X-0"),
-      Song("Skip", 0, Album(""), Author("Rick"), "dQw4w9WgXcQ"),
+
+      // Singles
+      Song("Hunting Shadows (Assassin's Creed)", 0, Album("Single"), Author("AURORA"), "cdp17rFzH3U"),
+      Song("The Secret Garden", 0, Album("Single"), Author("AURORA"), "rxaRoYCi2vo"),
+      Song("Midas Touch", 0, Album("Single"), Author("AURORA"), "cGqC8AL01Og"),
+      Song("The Devil Is Human", 0, Album("Single"), Author("AURORA"), "hWjiSEJTMOQ"),
+      Song("A Potion For Love", 0, Album("Single"), Author("AURORA"), "JfCr8ktyHw4"),
+      Song("Under Stars", 0, Album("Single"), Author("AURORA"), "_7o-rRC-3hs"),
 
       // Running With The Wolves (EP)
+      Song("Runaway", 0, Album("Running With The Wolves (EP)"), Author("AURORA"), "BRpS93I8_Jk"),
+      Song("Running With The Wolves", 250, Album("Running With The Wolves (EP)"), Author("AURORA"), "2M94IMhk6o0"),
       Song("In Boxes", 2000, Album("Running with the Wolves (EP)"), Author("AURORA"), "blRQ8GUcNJ0"),
       Song("Little Boy In The Grass", 500, Album("Running with the Wolves (EP)"), Author("AURORA"), "2MTsfnntwWc"),
+
+      // All My Demons Greeting Me As A Friend
+      // - Runaway
+      Song("Conqueror", 0, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "VsrRDKENb3w"),
+      // - Running With The Wolves
+      Song("Lucky", 2000, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "W7IzaZ1716M"),
+      Song("Winter Bird", 1500, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "d3O8XiPQO_s"),
+      Song("I Went Too Far", 0, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "-Z9lAvNgySU"),
+      Song("Through The Eyes Of A Child", 6000, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "M0O8Ih1tv1A"),
+      Song("Warrior", 0, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "Zkc7z7hvxi4"),
+      Song("Murder Song (5, 4, 3, 2, 1)", 0, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "xFXEbsP6iyI"),
+      Song("Home", 0, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "eAIt4N9MtmM"),
+      Song("Under The Water", 500, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "qtau-YHnEeY"),
+      Song("Black Water Lilies", 0, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "qP5deqLuH8o"),
+      Song("Half The World Away", 0, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "bIVpB92hWIg"),
+      // Deluxe Edition (without variants)
+      Song("Wisdom Cries", 8000, Album("All My Demons Greeting Me As A Friend"), Author("AURORA"), "q0r36IrK5P8"),
 
       // The Gods We Can Touch
       Song("The Forbidden Fruits of Eden", 1000, Album("The Gods We Can Touch"), Author("AURORA"), "wItPEYN5aJw"),
@@ -43,7 +69,7 @@ object SongLibrary:
       Song("Infections Of A Different Kind", 2000, Album("Infection Of A Different Kind – Step 1"), Author("AURORA"), "7EmdiaUX-wI"),
 
       // A Different Kind Of Human – Step 2
-      Song("The River", 2500, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "pz5FzFL2L7w"),
+      Song("The River", 3000, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "pz5FzFL2L7w"),
       Song("Animal", 0, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "eMM1FC3Tbe0"),
       Song("Dance On The Moon", 0, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "2GPh59K8_ys"),
       Song("Daydreamer", 0, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "soCJTCElcbk"),
