@@ -9,7 +9,7 @@ object SongLibrary:
       Song("Thank U", 0, Album("Goodnight Songs For Rebel Girls"), Author("AURORA"), "E39j5Mg7X-0"),
 
       // Singles
-      Song("Hunting Shadows (Assassin's Creed)", 0, Album("Single"), Author("AURORA"), "cdp17rFzH3U"),
+      Song("Hunting Shadows (Assassin's Creed)", 1500, Album("Single"), Author("AURORA"), "cdp17rFzH3U"),
       Song("The Secret Garden", 0, Album("Single"), Author("AURORA"), "rxaRoYCi2vo"),
       Song("Midas Touch", 0, Album("Single"), Author("AURORA"), "cGqC8AL01Og"),
       Song("The Devil Is Human", 0, Album("Single"), Author("AURORA"), "hWjiSEJTMOQ"),
