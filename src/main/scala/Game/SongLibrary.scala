@@ -80,7 +80,7 @@ object SongLibrary:
       Song("Mothership", 500, Album("A Different Kind Of Human – Step 2"), Author("AURORA"), "IP1Qhq8kQBY"),
 
       // What Happened To The Heart?
-      Song("Echo Of My Shadow", 3500, Album("What Happended To The Heart?"), Author("AURORA"), "kkPYHeSU_y4"),
+      Song("Echo Of My Shadow", 4000, Album("What Happended To The Heart?"), Author("AURORA"), "kkPYHeSU_y4"),
       Song("To Be Alright", 0, Album("What Happended To The Heart?"), Author("AURORA"), "kcSfjgyP6Bg"),
       Song("Your Blood", 0, Album("What Happended To The Heart?"), Author("AURORA"), "89GvgJ0Rn54"),
       Song("The Conflict Of The Mind", 2500, Album("What Happended To The Heart?"), Author("AURORA"), "XO2tAfUe2HU"),
