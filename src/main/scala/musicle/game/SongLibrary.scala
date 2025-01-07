@@ -1,4 +1,4 @@
-package Game
+package musicle.game
 
 case class SongLibrary(songs: List[Song])
 

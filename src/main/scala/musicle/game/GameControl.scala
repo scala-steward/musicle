@@ -1,10 +1,10 @@
-package Game
+package musicle.game
 
-import Audio.YoutubeEmbed
-import Controls.SearchFieldControl
 import com.raquo.laminar.api.L.{ *, given }
 import Game.*
-import _root_.Game.GameControl.guessesToGuessSlots
+import GameControl.guessesToGuessSlots
+import musicle.audio.YoutubeEmbed
+import musicle.controls.SearchFieldControl
 
 class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
   def component(): Seq[HtmlElement] =

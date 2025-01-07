@@ -1,4 +1,4 @@
-package Game
+package musicle.game
 
 import java.time.*
 import scala.util.Random

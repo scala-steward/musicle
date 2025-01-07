@@ -1,4 +1,4 @@
-package Audio
+package musicle.audio
 
 import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
