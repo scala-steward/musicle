@@ -1,4 +1,4 @@
-package Game
+package musicle.game
 
 case class GameType(maxGuesses: Int, stageSprites: Seq[Int], songs: Seq[Song])
 

@@ -1,7 +1,9 @@
-import Audio.{ AudioController, YoutubeEmbed }
+package musicle
+
 import com.raquo.laminar.api.L.{ *, given }
+import musicle.audio.{ AudioController, YoutubeEmbed }
+import musicle.game.{ Game, GameControl, GameType, SongLibrary, SongPicker }
 import org.scalajs.dom
-import Game.*
 
 import java.time.*
 import scala.collection.mutable
@@ -17,8 +19,8 @@ val youtubeEmbed: YoutubeEmbed      = YoutubeEmbed()
 val songLibrary: SongLibrary        = SongLibrary(SongLibrary.loadSongs())
 
 // Game
-val game: Var[Game]          = Var(loadGameByDate(LocalDate.now()))
-val gameControl: GameControl = GameControl(game, youtubeEmbed)
+val currentGame: Var[Game]   = Var(loadGameByDate(LocalDate.now()))
+val gameControl: GameControl = GameControl(currentGame, youtubeEmbed)
 
 // Other
 val currentDate: Var[LocalDate] = Var(LocalDate.now())
@@ -37,13 +39,13 @@ def loadGameByDate(date: LocalDate): Game =
   getOrInitializeGameByDate(date)
 
 def saveCurrentGame(): Unit =
-  websiteState.update(_.updateGame(currentDate.now(), game.now()))
+  websiteState.update(_.updateGame(currentDate.now(), currentGame.now()))
 
 def setGameDate(date: LocalDate): Unit =
   saveCurrentGame()
 
   currentDate.set(date)
-  game.set(loadGameByDate(date))
+  currentGame.set(loadGameByDate(date))
   gameControl.reload()
 
 def navigateGameDate(daysOffset: Int): Unit =

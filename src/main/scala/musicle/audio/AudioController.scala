@@ -1,6 +1,6 @@
-package Audio
+package musicle.audio
 
-import Game.Game
+import musicle.game.Game
 
 trait AudioController:
   def setSnippet(startMs: Int, endMs: Int): Unit

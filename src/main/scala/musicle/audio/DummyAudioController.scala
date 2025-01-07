@@ -1,4 +1,4 @@
-package Audio
+package musicle.audio
 
 import org.scalajs.dom
 
