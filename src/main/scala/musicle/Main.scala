@@ -38,11 +38,11 @@ def getOrInitializeGameByDate(date: LocalDate): Game =
 def loadGameByDate(date: LocalDate): Game =
   getOrInitializeGameByDate(date)
 
-def savecurrentGame2(): Unit =
+def saveCurrentGame(): Unit =
   websiteState.update(_.updateGame(currentDate.now(), currentGame.now()))
 
 def setGameDate(date: LocalDate): Unit =
-  savecurrentGame2()
+  saveCurrentGame()
 
   currentDate.set(date)
   currentGame.set(loadGameByDate(date))
