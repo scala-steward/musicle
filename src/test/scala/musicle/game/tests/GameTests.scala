@@ -1,4 +1,4 @@
-package Game.tests
+package musicle.game.tests
 
 import org.scalatest.flatspec.AnyFlatSpec
 
