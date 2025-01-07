@@ -1,4 +1,4 @@
-package Controls
+package musicle.controls
 
 import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom

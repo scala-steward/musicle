@@ -1,4 +1,4 @@
-package Audio
+package musicle.audio
 
 import com.raquo.laminar.api.L.{ *, given }
 import org.scalajs.dom
@@ -12,13 +12,12 @@ class YoutubeEmbed extends AudioController:
   private val youtubeEnd: Var[Int]            = Var(1)
   val videoHidden: Var[Boolean]               = Var(true)
 
-
   private def sendPostMessage(iframe: dom.HTMLIFrameElement, command: String): Unit =
     iframe.contentWindow.postMessage(command, "*")
 
   def component(): HtmlElement =
     iframe(
-      idAttr := "ytplayer",
+      idAttr    := "ytplayer",
       allowAttr := "autoplay",
       hidden <-- videoHidden.signal,
       src <-- youtubeVideoSource.signal

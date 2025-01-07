@@ -1,4 +1,4 @@
-package Game
+package musicle.game
 
 import com.raquo.laminar.api.L.Var
 

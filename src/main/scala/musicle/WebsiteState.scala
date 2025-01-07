@@ -1,8 +1,9 @@
-import Game.*
+package musicle
+
 import com.raquo.laminar.api.L.{ *, given }
-import com.raquo.laminar.api.L.*
-import io.bullet.borer.{ Codec, Decoder, Encoder }
 import io.bullet.borer.derivation.MapBasedCodecs.*
+import io.bullet.borer.{ Codec, Decoder, Encoder }
+import musicle.game.{ Album, Author, Game, GameType, Guess, Song }
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

@@ -1,3 +1,5 @@
+package musicle
+
 import com.raquo.airstream.web.WebStorageVar
 import com.raquo.laminar.api.L.{ *, given }
 import io.bullet.borer.Json

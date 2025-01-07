@@ -32,7 +32,7 @@ jobs:
       uses: olafurpg/setup-scala@v10
 
     - name: Build Scala.js project
-      run: sbt fastOptJS   # Use `fullOptJS` for production build
+      run: sbt fastLinkJS   # Use `fullLinkJS` for production build
 
     # Disabled until tests are added
     #- name: Run tests
