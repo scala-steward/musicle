@@ -28,6 +28,9 @@ lazy val root = project
         .withModuleKind(ModuleKind.CommonJSModule)
         .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
+
+    Test / test := (Test / fastLinkJS).value,
+
     libraryDependencies ++= Seq(
       "com.raquo"         %%% "laminar"              % "17.2.0",
       "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
