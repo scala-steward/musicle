@@ -1,8 +1,8 @@
 package musicle
 
-import com.raquo.laminar.api.L.{*, given}
-import musicle.audio.{AudioController, YoutubeEmbed}
-import musicle.game.{Game, GameControl, GameType, SongLibrary, SongPicker}
+import com.raquo.laminar.api.L.{ *, given }
+import musicle.audio.{ AudioController, YoutubeEmbed }
+import musicle.game.{ Game, GameControl, GameType, SongLibrary, SongPicker }
 import org.scalajs.dom
 
 import java.time.*
@@ -19,7 +19,7 @@ val youtubeEmbed: YoutubeEmbed      = YoutubeEmbed()
 val songLibrary: SongLibrary        = SongLibrary(SongLibrary.loadSongs())
 
 // Game
-val currentGame: Var[Game]          = Var(loadGameByDate(LocalDate.now()))
+val currentGame: Var[Game]   = Var(loadGameByDate(LocalDate.now()))
 val gameControl: GameControl = GameControl(currentGame, youtubeEmbed)
 
 // Other
