@@ -26,8 +26,8 @@ lazy val root = project
     scalaJSLinkerConfig ~= {
       _.withOptimizer(false)
         .withModuleKind(ModuleKind.CommonJSModule)
-        .withModuleSplitStyle(ModuleSplitStyle.SmallModulesFor(List("musicle")))
     },
+
     libraryDependencies ++= Seq(
       "com.raquo"         %%% "laminar"              % "17.2.0",
       "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
@@ -35,6 +35,8 @@ lazy val root = project
       // JSON codec
       "io.bullet" %%% "borer-core"       % "1.15.0",
       "io.bullet" %%% "borer-derivation" % "1.15.0",
+      // Development
+      "org.scalatest" %%% "scalatest" % "3.2.18" % "test",
     ),
 
     // Tell ScalablyTyped that we manage `npm install` ourselves

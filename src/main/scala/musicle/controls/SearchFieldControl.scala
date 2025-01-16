@@ -1,6 +1,7 @@
 package musicle.controls
 
 import com.raquo.laminar.api.L.{ *, given }
+import musicle.utils.SearchUtil
 import org.scalajs.dom
 
 object SearchFieldControl:
@@ -29,14 +30,19 @@ object SearchFieldControl:
           query.trim match {
             case "" => Seq.empty
             case _ =>
-              database
-                .filter(result => result.toString.toLowerCase.contains(query.toLowerCase))
-                .filterNot(exclusionFilter)
+              SearchUtil
+                .search(database, query, exclusionFilter)
                 .take(7)
-                .map(item => li(cls := "song", renderListItem(item), onClick --> { _ =>
-                  handleListItemClick(item)
-                  searchQueryVar.set("")
-                }))
+                .map(item =>
+                  li(
+                    cls := "song",
+                    renderListItem(item),
+                    onClick --> { _ =>
+                      handleListItemClick(item)
+                      searchQueryVar.set("")
+                    },
+                  ),
+                )
           }
         },
       ),
