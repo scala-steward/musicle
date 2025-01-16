@@ -66,12 +66,15 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
 
   private def guessElement(guessSlot: GuessSlot): HtmlElement =
     div(
-      cls := s"guess-row guess-box ${if guessSlot.correct then " correct-guess" else ""}",
+      cls := s"guess-row guess-box guess-${if guessSlot.correct then "correct" else "wrong"}",
       guessSlot.song match {
         case Some(s) =>
           Seq(
             span(cls := "guess-title", s.title),
-            span(cls := "guess-album", s.album.toString),
+            span(
+              cls := s"guess-album guess-album-${if guessSlot.correct_album then "correct" else "wrong"}",
+              s.album.toString,
+            ),
           )
         case None =>
           if guessSlot.skipped then Seq(span(cls := "guess-title", "- Skipped -"))
@@ -82,7 +85,14 @@ class GameControl(val game: Var[Game], youtubeEmbed: YoutubeEmbed):
 object GameControl:
   def guessesToGuessSlots(game: Game, guesses: List[Guess]): List[GuessSlot] =
     guesses
-      .map(guess => GuessSlot(guess.song, guess.song.isEmpty, guess.song.contains(game.actualSong)))
-      .padTo(game.gameType.maxGuesses, GuessSlot(None, false, false))
+      .map(guess =>
+        GuessSlot(
+          guess.song,
+          guess.song.isEmpty,
+          guess.song.contains(game.actualSong),
+          guess.song.exists(_.album == game.actualSong.album),
+        ),
+      )
+      .padTo(game.gameType.maxGuesses, GuessSlot(None, false, false, false))
 
-case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean)
+case class GuessSlot(song: Option[Song], skipped: Boolean, correct: Boolean, correct_album: Boolean)

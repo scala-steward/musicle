@@ -283,8 +283,26 @@ ul.guess-container {
   100% { text-shadow: 0 0 20px #ff5733, 0 0 30px #ff5733; }
 }
 
-.correct-guess {
+.guess-correct {
   animation: glow 1s ease-in-out infinite alternate;
   color: #ffd700;
   font-size: 1.2em;
+}
+
+/* Only show hint markers on wrong guesses */
+.guess-wrong > .guess-album::before {
+  font-weight: bold;
+  font-size: 1.2em; /* Adjust size as needed */
+  vertical-align: middle; /* Align vertically with text */
+  /*margin-right: 0.2em;*/
+}
+
+.guess-wrong > .guess-album-wrong::before {
+  content: "✗"; /* Unicode for a small cross */
+  color: #ff4a3b; /* Red color for the cross */
+}
+
+.guess-wrong > .guess-album-correct::before {
+  content: "✓";
+  color: greenyellow;
 }
