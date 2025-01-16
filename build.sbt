@@ -27,7 +27,6 @@ lazy val root = project
       _.withOptimizer(false)
         .withModuleKind(ModuleKind.CommonJSModule)
     },
-
     libraryDependencies ++= Seq(
       "com.raquo"         %%% "laminar"              % "17.2.0",
       "io.github.cquiroz" %%% "scala-java-time"      % "2.5.0",
